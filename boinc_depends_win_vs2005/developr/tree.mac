@@ -1,0 +1,2 @@
+ROOT    = cd /d %BUILDROOT%
+OUTPUT  = cd /d %BUILDOUTPUT%

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SetupPrereq>
+	<conditions>
+		<condition Type="32" Comparison="2" Path="HKEY_LOCAL_MACHINE\SOFTWARE\Oracle\VirtualBox" FileName="VersionExt" ReturnValue="4.1.7"></condition>
+	</conditions>
+	<files>
+		<file LocalFile=".\common.cab" CheckSum="03451BBA6A5EF33CDFECB7A194BF0764" FileSize="0,49926105"></file>
+		<file LocalFile=".\VirtualBox-4.1.8-r75467-MultiArch_x86.msi" CheckSum="2B503B458B8291B0D4C8A1E44B9ADD25" FileSize="0,17334272"></file>
+	</files>
+	<execute file="VirtualBox-4.1.8-r75467-MultiArch_x86.msi" cmdlinesilent="/qn" requiresmsiengine="1"></execute>
+	<properties Id="{99360D9A-6C66-4E9E-B1DA-CFBECEBD9678}" Description="Oracle VM VirtualBox 4.1.8"></properties>
+	<behavior MsiProgress="1"></behavior>
+</SetupPrereq>

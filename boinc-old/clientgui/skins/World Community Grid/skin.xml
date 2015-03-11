@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin>
+  <en>
+    <simple>
+      <panel_opacity>180</panel_opacity>
+      <background_image>
+        <image>
+          <imagesrc>background_image.png</imagesrc>
+          <background_color>0:0:0</background_color>
+        </image>
+      </background_image>
+      <workunit_running_image>
+        <image>
+          <imagesrc>Green_dot.png</imagesrc>
+        </image>
+      </workunit_running_image>
+      <workunit_waiting_image>
+        <image>
+          <imagesrc>Yellow_dot.png</imagesrc>
+        </image>
+      </workunit_waiting_image>
+      <workunit_suspended_image>
+        <image>
+          <imagesrc>Red_dot.png</imagesrc>
+        </image>
+      </workunit_suspended_image>
+    </simple>
+    <advanced>
+      <application_name>World Community Grid - BOINC Manager</application_name>
+      <application_short_name>World Community Grid</application_short_name>
+
+      <application_logo>wcg_about.ico</application_logo>
+      <application_icon>
+
+        <image>
+
+          <imagesrc>wcg_play.png</imagesrc>
+          <transparency_mask>255:0:255</transparency_mask>
+
+        </image>
+
+      </application_icon>
+
+      <application_icon32>
+
+        <image>
+
+          <imagesrc>wcg_about.ico</imagesrc>
+          <transparency_mask>255:0:255</transparency_mask>
+
+        </image>
+
+      </application_icon32>
+
+      <application_disconnected_icon>
+
+        <image>
+
+          <imagesrc>wcg_stop.png</imagesrc>
+          <transparency_mask>255:0:255</transparency_mask>
+
+        </image>
+
+      </application_disconnected_icon>
+
+      <application_snooze_icon>
+
+        <image>
+
+          <imagesrc>wcg_pause.png</imagesrc>
+          <transparency_mask>255:0:255</transparency_mask>
+
+        </image>
+
+      </application_snooze_icon>
+      <organization_name>World Community Grid</organization_name>
+      <organization_website>http://www.worldcommunitygrid.org</organization_website>
+      <organization_help_url>http://www.worldcommunitygrid.org/boinc.do</organization_help_url> 
+
+    </advanced>
+  </en>
+</skin>

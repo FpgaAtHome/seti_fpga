@@ -1,0 +1,48 @@
+-----------------------------------------------------------------------------------------------------------
+31st May 2014 - Added folder structure for ITranspose and IPowerspectrum abstract base classes
+-----------------------------------------------------------------------------------------------------------
+30th May 2014 - Initial cut, for refinement as derived classes take shape 
+(FFT's will be first cab off the rank, via IFFT abstract class deriving from this, followed by fftw, oura,
+cufft, oclfft and naive dft implementation classes)
+- ICoreSigProc: Abstract (pure virtual) base template class
+template parameters <_Tin, _Tout> are input and output types respectively.
+execute() member function is pure virtual, for polymorphic use of derived classes in pipelines.
+derived classes, abstract or otherwise, should either feed pointers through using the fully
+specified constructor, or the fairly useless default constructor will be used.  Will probably disable that default constructor later.
+- Fully templatised so that higher & possibly arbitrary precision gold reference implementations
+can be easily injected in test pieces, regression tests etc, while using the same class library.
+-----------------------------------------------------------------------------------------------------------
+24th May 2014, (Part 2) [Added IPulse base class, derived from ISearch]
+- Folders for some candidate derived generic classes, for devices, signal processors, and pipelines.
+IDevices:  CPUs, GPUs, and Remote nodes (future RPC)
+ICoreSigProcs: Generalisations of major search algorithm processing steps.
+IPipelineSigProcs: Generalises different levels of parallelism that may be used
+-- IFFTPipeline: Might be asked to process one or more FFT's in a given CFFT pair, up to a whole CFFT
+-- ICFFTPipeline: Might be asked to process from one CFFT up to a whole Chirp full.
+-- IChirpPipeline: Might be asked to process from one Chirp, up to a whole task.
+-- ITaskPipeline:  Might process from one to many tasks at once (future)
+
+Jason Groothuis ( contact at jgopt dot org )
+-----------------------------------------------------------------------------------------------------------
+24th May 2014, (Part 1)
+ Initial trial folder structure (only), mirroring top level of proposed class hierarchy (currently inactive/unused).  For dropping in candidate classes for refinement and future use. 
+
+Due to a lack of naming convention for C++ Abstract Classes, I'll use common capitalisation for implementation classes, and prefix with 'I' for abstract ones.  Will stay fairly flexible this early, should namespace conflicts arise here. (i.e. don't expect stable interfaces yet )
+
+Expect containers/enumeration at high level for easing future development.
+
+ICoreSigProc- Abstract signal processor class,
+- parent/ancestor of all derived FFT, Chirp, Spike, Triplet, Pulse, Gaussian and Autocorrelation generic classes.
+- Another generic abstraction level under this one for wrapping implementations below.
+
+IDevice- Abstract Processing resource class,
+- parent/ancestor of all compute devices capable of processing any portion of core signal processing in any fashion
+- Another generic abstraction level under this one, for wrapping different kinds of device.
+
+IPipelineSigProc- Abstract class pipelining of ICoreSigProcs and IDevices
+- Abstracts allowable processing order/reductions of results etc, and devices
+- represents the processing algorithm at the highest levels
+- implementations and generalisations underneath may represent totally different 'ways' of arriving at a reference 'answer'.
+
+Jason Groothuis ( contact at jgopt dot org )
+-----------------------------------------------------------------------------------------------------------

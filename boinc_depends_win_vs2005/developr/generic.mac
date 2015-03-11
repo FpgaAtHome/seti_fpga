@@ -1,0 +1,8 @@
+USE     = net use $*
+NUSE    = net use $* /d
+SYNC    = svn update
+LS      = dir
+MV      = move $*
+CP      = copy $*
+BZ      = build.cmd all
+BCZ     = clean.cmd all $T build.cmd all

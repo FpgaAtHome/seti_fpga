@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  This file is part of BOINC.
+  http://boinc.berkeley.edu
+  Copyright (C) 2012 University of California
+  
+  BOINC is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License
+  as published by the Free Software Foundation,
+  either version 3 of the License, or (at your option) any later version.
+  
+  BOINC is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
+  
+  You should have received a copy of the GNU Lesser General Public License
+  along with BOINC.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+    <!-- Monitor behavior -->
+    	<integer name="monitor_refresh_rate_ms">5000</integer>
+    	<integer name="monitor_setup_connection_retry_rate_ms">5000</integer>
+    	<integer name="monitor_setup_connection_retry_attempts">5</integer>
+    	<integer name="autostart_notification_id">4142</integer>
+    <!-- configuration on tab layout -->
+    	<bool name="tab_status">true</bool>
+        <bool name="tab_projects">true</bool>
+        <bool name="tab_tasks">true</bool>
+    	<bool name="tab_transfers">true</bool>
+    	<bool name="tab_preferences">true</bool>
+    	<bool name="tab_messages">true</bool>
+    	<bool name="tab_debug">false</bool>
+</resources>
