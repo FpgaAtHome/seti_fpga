@@ -31,11 +31,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "seti_graphics", "seti_graph
 		{C4165626-F68F-4F66-A126-3B82DDBB7480} = {C4165626-F68F-4F66-A126-3B82DDBB7480}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libboinc_staticcrt", "..\..\..\boinc\win_build\libboinc_staticcrt.vcproj", "{B00664BD-71EB-46C1-957E-CD851418D395}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libboinc_staticcrt", "..\..\..\boinc-old\win_build\libboinc_staticcrt.vcproj", "{B00664BD-71EB-46C1-957E-CD851418D395}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libboincapi_staticcrt", "..\..\..\boinc\win_build\libboincapi_staticcrt.vcproj", "{07BDA8F7-4AAF-4A3B-B96E-EA72A143C5AE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libboincapi_staticcrt", "..\..\..\boinc-old\win_build\libboincapi_staticcrt.vcproj", "{07BDA8F7-4AAF-4A3B-B96E-EA72A143C5AE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgraphics2", "..\..\..\boinc\win_build\libgraphics2.vcproj", "{814EBFD3-3CE6-4933-A580-C1FE3147ACB4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgraphics2", "..\..\..\boinc-old\win_build\libgraphics2.vcproj", "{814EBFD3-3CE6-4933-A580-C1FE3147ACB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

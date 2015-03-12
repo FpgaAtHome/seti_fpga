@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../boinc/win_build;..;..\..;..\..\..\boinc\lib"
+				AdditionalIncludeDirectories="../../../boinc/win_build;..;..\..;..\..\..\boinc-old\lib"
 				PreprocessorDefinitions="WIN32;_MT;_DEBUG;_WINDOWS;_CONSOLE;HAVE_STD_MAX;HAVE_STD_MIN;HAVE_STD_TRANSFORM;CLIENT;BOINC_APP_GRAPHICS;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -111,7 +111,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../boinc/win_build;..;..\..;..\..\..\boinc\lib"
+				AdditionalIncludeDirectories="../../../boinc/win_build;..;..\..;..\..\..\boinc-old\lib"
 				PreprocessorDefinitions="WIN32;_MT;_DEBUG;_WINDOWS;_CONSOLE;HAVE_STD_MAX;HAVE_STD_MIN;HAVE_STD_TRANSFORM;CLIENT;BOINC_APP_GRAPHICS;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -177,7 +177,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../../boinc/win_build;..;..\..;..\..\..\boinc\lib"
+				AdditionalIncludeDirectories="../../../boinc/win_build;..;..\..;..\..\..\boinc-old\lib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_MT;_WINDOWS;_CONSOLE;HAVE_STD_MAX;HAVE_STD_MIN;HAVE_STD_TRANSFORM;CLIENT;BOINC_APP_GRAPHICS"
 				MinimalRebuild="true"
 				RuntimeLibrary="0"
@@ -243,7 +243,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../../boinc/win_build;..;..\..;..\..\..\boinc\lib"
+				AdditionalIncludeDirectories="../../../boinc/win_build;..;..\..;..\..\..\boinc-old\lib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_MT;_WINDOWS;_CONSOLE;HAVE_STD_MAX;HAVE_STD_MIN;HAVE_STD_TRANSFORM;CLIENT;BOINC_APP_GRAPHICS"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="false"

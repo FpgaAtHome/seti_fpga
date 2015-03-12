@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\boinc\boincglut\lib\glut;..\..\..\boinc\boincglut\include"
+				AdditionalIncludeDirectories="..\..\boinc-old\boincglut\lib\glut;..\..\..\boinc-old\boincglut\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -99,70 +99,70 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\bglut_event.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\bglut_event.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_bitmap.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_bitmap.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_cmap.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_cmap.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_fullscrn.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_fullscrn.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_gamemode.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_gamemode.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_get.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_get.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_glxext.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_glxext.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_hel10.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_hel10.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_hel12.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_hel12.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_init.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_init.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_key.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_key.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_keyup.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_keyup.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_mesa.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_mesa.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_roman.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_roman.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_stroke.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_stroke.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_swap.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_swap.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_swidth.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_swidth.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_tr10.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_tr10.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_tr24.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_tr24.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_util.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_util.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glut_win.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glut_win.c">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\layerutil.c">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\layerutil.c">
 			</File>
 		</Filter>
 		<Filter
@@ -170,22 +170,22 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\boinc_glut.h">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\boinc_glut.h">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\include\Gl\glut.h">
+				RelativePath="..\..\..\boinc-old\boincglut\include\Gl\glut.h">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glutbitmap.h">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glutbitmap.h">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glutint.h">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glutint.h">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\glutstroke.h">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\glutstroke.h">
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\boincglut\lib\glut\layerutil.h">
+				RelativePath="..\..\..\boinc-old\boincglut\lib\glut\layerutil.h">
 			</File>
 		</Filter>
 		<Filter

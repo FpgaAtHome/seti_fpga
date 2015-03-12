@@ -56,7 +56,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./;../../../boinc/win_build;../..;../../../boinc;../../../boinc/api;../../../boinc/api/win;../../../boinc/client/win;../../../boinc/;../../../boinc/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;"
+				AdditionalIncludeDirectories="./;../../../boinc-old/win_build;../..;../../../boinc-old;../../../boinc-old/api;../../../boinc-old/api/win;../../../boinc-old/client/win;../../../boinc-old/;../../../boinc-old/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;"
 				PreprocessorDefinitions="WIN32;_WIN32;USE_SSE;__i386__;USE_ASMLIB;_MT;NDEBUG;_WINDOWS;BOINC_APP_GRAPHICS;CLIENT;_CONSOLE"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -164,7 +164,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="../../win_build;../../../boinc/win_build;../../../boinc;../../../boinc/api;../../../boinc/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;;."
+				AdditionalIncludeDirectories="../../win_build;../../../boinc-old/win_build;../../../boinc-old;../../../boinc-old/api;../../../boinc-old/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;;."
 				PreprocessorDefinitions="WIN32;_MT;_DEBUG;_WINDOWS;_CONSOLE;HAVE_STD_MAX;HAVE_STD_MIN;CLIENT;BOINC_APP_GRAPHICS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -278,7 +278,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./;../../../boinc/win_build;../..;../../../boinc;../../../boinc/api;../../../boinc/api/win;../../../boinc/client/win;../../../boinc/;../../../boinc/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;"
+				AdditionalIncludeDirectories="./;../../../boinc-old/win_build;../..;../../../boinc-old;../../../boinc-old/api;../../../boinc-old/api/win;../../../boinc-old/client/win;../../../boinc-old/;../../../boinc-old/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;"
 				PreprocessorDefinitions="WIN32;_WIN32;_MT;NDEBUG;_WINDOWS;BOINC_APP_GRAPHICS;CLIENT;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -387,7 +387,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="../../win_build;../../../boinc/win_build;../../../boinc;../../../boinc/api;../../../boinc/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;"
+				AdditionalIncludeDirectories="../../win_build;../../../boinc-old/win_build;../../../boinc-old;../../../boinc-old/api;../../../boinc-old/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;"
 				PreprocessorDefinitions="WIN32;_MT;_DEBUG;_WINDOWS;_CONSOLE;HAVE_STD_MAX;HAVE_STD_MIN;CLIENT;BOINC_APP_GRAPHICS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -650,7 +650,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\lib\filesys.h"
+				RelativePath="..\..\..\boinc-old\lib\filesys.h"
 				>
 			</File>
 			<File
@@ -718,7 +718,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\boinc\lib\stackwalker_win.h"
+				RelativePath="..\..\..\boinc-old\lib\stackwalker_win.h"
 				>
 			</File>
 			<File
