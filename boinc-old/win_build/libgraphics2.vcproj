@@ -137,6 +137,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="psapi.lib"
 				OutputFile="$(OutDir)/libgraphics2.lib"
 			/>
 			<Tool
