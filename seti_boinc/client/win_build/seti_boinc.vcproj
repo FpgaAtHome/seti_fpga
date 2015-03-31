@@ -537,6 +537,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\fpga_interface.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\gaussfit.cpp"
 				>
 			</File>
@@ -651,6 +655,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\boinc-old\lib\filesys.h"
+				>
+			</File>
+			<File
+				RelativePath=".\fpga_interface.h"
 				>
 			</File>
 			<File

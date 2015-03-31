@@ -124,6 +124,7 @@ const char *SAH_PACKAGE_STRING=CUSTOM_STRING;
 #include "worker.h"
 #include "filesys.h"
 #include "progress.h"
+#include "fpga_interface.h"
 
 BaseLineSmooth_func BaseLineSmooth=v_BaseLineSmooth;
 GetPowerSpectrum_func GetPowerSpectrum=v_GetPowerSpectrum;
@@ -222,6 +223,10 @@ int seti_analyze (ANALYSIS_STATE& state) {
     int * BitRevTab[MAX_NUM_FFTS];
     float * CoeffTab[MAX_NUM_FFTS];
 #endif
+#ifdef USE_FPGA
+	FpgaInterface fpgaInterface;
+	fpgaInterface.initializeFpga();
+#endif
 
     // Allocate data array and work area arrays.
     ChirpedData = state.data;
@@ -239,8 +244,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
     // boinc_worker_timer();
     FftNum=0;
     FftLen=1;
-
-
 
 #ifdef USE_FFTWF
     double sz;
@@ -310,7 +313,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
             BitRevTab[FftNum][0] = 0;
 #else
 
-
             WorkData = (sah_complex *)malloc_a(FftLen * sizeof(sah_complex),MEM_ALIGN);
             sah_complex *scratch=(sah_complex *)malloc_a(FftLen*sizeof(sah_complex),MEM_ALIGN);
             if ((WorkData == NULL) || (scratch==NULL)) {
@@ -321,6 +323,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
 #ifdef USE_MANUAL_CALLSTACK
             call_stack.enter("fftwf_plan_dft_1d()");
 #endif
+			fprintf(stderr, "\nplan_dft_1d(Fftlen=%d", FftLen);
             analysis_plans[FftNum] = fftwf_plan_dft_1d(FftLen, scratch, WorkData, FFTW_BACKWARD, FFTW_MEASURE_OR_ESTIMATE|FFTW_PRESERVE_INPUT);
 #ifdef USE_MANUAL_CALLSTACK
             call_stack.exit();
@@ -497,6 +500,175 @@ int seti_analyze (ANALYSIS_STATE& state) {
     double last_ptime=0;
     int rollovers=0;
     double clock_max=0;
+#ifdef USE_FPGA
+// Main Analysis loop
+// ends around line 656
+	for (icfft = state.icfft; icfft < num_cfft; icfft++) {
+		fftlen       = ChirpFftPairs[icfft].FftLen;
+		chirprate    = ChirpFftPairs[icfft].ChirpRate;
+		chirprateind = ChirpFftPairs[icfft].ChirpRateInd;
+		remaining=1.0-(double)icfft/num_cfft;
+
+		fprintf(stderr, "\nfftlen=%d", fftlen);
+		fprintf(stderr, "\nchirprate=%f", chirprate);
+		fprintf(stderr, "\nchirprateind=%d", chirprateind);
+		fprintf(stderr, "\nNumDataPoints=%d", NumDataPoints);
+
+		fprintf(stderr, "\nLoop over Chirp/Fft Pairs");
+// We take DataIn, do a "chirp" operation on it and store
+// the results in ChirpedData
+        if (chirprateind != last_chirp_ind) {
+			// CUDA does this in the GPU
+            retval = ChirpData(
+                         DataIn,
+                         ChirpedData,
+                         chirprateind,
+                         chirprate,
+                         NumDataPoints,
+                         swi.subband_sample_rate
+                     );
+
+            if (retval) SETIERROR(retval, "from ChirpData()");
+
+            progress += (double)(ProgressUnitSize * ChirpProgressUnits());
+            chirp_units+=(double)(ProgressUnitSize * ChirpProgressUnits());
+            progress = std::min(progress,1.0);
+        }
+
+        //    last_chirp = chirprate;
+        last_chirp_ind = chirprateind;
+
+        // Process this FFT length.
+        // For a given FFT length (at a given chirp), we construct
+        // PowerSpectrum[] which is a "waterfall" array of power spectra,
+        // each fftlen long on the frequency axis and sample time long
+        // on the time axis.
+        // As we go along, we check each spectra for spikes.
+
+        state.icfft = icfft;     // update analysis state
+
+        // Find index into FFT length table for the current
+        // FFT length.  This will be the same index needed
+        // for ooura's coeffecient and bit reverse tables.
+        for (FftNum = 0; FftNum < swi.num_fft_lengths; FftNum++) {
+            if (swi.analysis_fft_lengths[FftNum] == fftlen) {
+                break;
+            }
+        }
+
+        // If PoT freq bin is non-negative, we are into PoT analysis
+        // for this cfft pair and should not re-output an "ogh" line.
+        if (state.PoT_freq_bin == -1) {
+            retval = result_group_start();
+            if (retval) SETIERROR(retval,"from result_group_start");
+        }
+
+        // Number of FFTs for this length
+        NumFfts   = NumDataPoints / fftlen;
+
+		fprintf(stderr, "\nNumFfts=%d", NumFfts);
+
+        for (ifft = 0; ifft < NumFfts; ifft++) {
+            // boinc_worker_timer();
+            CurrentSub = fftlen * ifft;
+			fprintf(stderr, "\nCurrentSub=%d", CurrentSub);
+			// Run a Dft based on the analysis plan
+
+            state.FLOP_counter+=5*(double)fftlen*log((double)fftlen)/log(2.0);
+
+            fftwf_execute_dft(analysis_plans[FftNum], &ChirpedData[CurrentSub], WorkData);
+
+            // replace freq with power
+            state.FLOP_counter+=(double)fftlen;
+			fprintf(stderr, "GetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
+            GetPowerSpectrum( WorkData,
+                              &PowerSpectrum[CurrentSub],
+                              fftlen
+                            );
+
+	    if (fftlen==(long)ac_fft_len) {
+	      state.FLOP_counter+=((double)fftlen)*5*log((double)fftlen)/log(2.0)+2*fftlen;
+
+              fftwf_execute_r2r(autocorr_plan,&PowerSpectrum[CurrentSub],AutoCorrelation);
+
+            }
+	        
+            // any ETIs ?!
+            // If PoT freq bin is non-negative, we are into PoT analysis
+            // for this cfft pair and need not redo spike and autocorr finding.
+            if (state.PoT_freq_bin == -1) {
+                //JWS: Don't look for Spikes at too short FFT lengths. 
+                if (fftlen >= PoTInfo.SpikeMin) {
+                  state.FLOP_counter+=(double)fftlen;
+				  fprintf(stderr, "\nFindSpikes(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
+                  retval = FindSpikes(
+                               &PowerSpectrum[CurrentSub],
+                               fftlen,
+                               ifft,
+                               swi
+                           );
+                  if (retval) SETIERROR(retval,"from FindSpikes");
+                }
+
+                if (fftlen==ac_fft_len) {
+					fprintf(stderr, "\nFindAutoCorrelation(fftlen=%d)", fftlen);
+					retval = FindAutoCorrelation(
+                               AutoCorrelation,
+                               fftlen,
+                               ifft,
+                               swi
+                           );
+                  if (retval) SETIERROR(retval,"from FindAutoCorrelation");
+                  progress += 2.0*SpikeProgressUnits(fftlen)*ProgressUnitSize/NumFfts;
+                } else {
+                  progress += SpikeProgressUnits(fftlen)*ProgressUnitSize/NumFfts;
+                }
+            }
+
+            //progress = ((float)icfft)/num_cfft + ((float)ifft)/(NumFfts*num_cfft);
+            progress = std::min(progress,1.0);
+            remaining=1.0-(double)(icfft+1)/num_cfft;
+            fraction_done(progress,remaining);
+			fprintf(stderr, "\nprogress=%f, remaining=%f", progress, remaining);
+            // jeffc
+            //fprintf(stderr, "S fft len %d  progress = %12.10f\n", fftlen, progress);
+        } // loop through chirped data array
+
+        fraction_done(progress,remaining);
+        // jeffc
+        //fprintf(stderr, "Sdone fft len %d  progress = %12.10f\n", fftlen, progress);
+
+        // transpose PoT matrix to make memory accesses nicer
+        need_transpose = ChirpFftPairs[icfft].GaussFit || ChirpFftPairs[icfft].PulseFind;
+        if ( !need_transpose ) {
+            int tmpPulsePoTLen, tmpOverlap;
+            GetPulsePoTLen( NumFfts, &tmpPulsePoTLen, &tmpOverlap );
+            if ( ! ( tmpPulsePoTLen > PoTInfo.TripletMax || tmpPulsePoTLen < PoTInfo.TripletMin ) )
+                need_transpose = true;
+        }
+
+        if (need_transpose && use_transposed_pot) {
+            Transpose(fftlen, NumFfts, (float *) PowerSpectrum, (float *)tPowerSpectrum);
+        }
+        //
+        // Analyze Power over Time.  May return quickly if this FFT
+        // length and/or this WUs slew rate places the data block
+        // outside PoT analysis limits.
+        // Counting flops is done inside analyze_pot
+        retval = analyze_pot(tPowerSpectrum, NumDataPoints, ChirpFftPairs[icfft]);
+        if (retval) SETIERROR(retval,"from analyze_pot");
+        // Force progress to 100% before calling result_group_end() to store
+        //  100% in state file so it will survive exit & relaunch
+        if (icfft == (num_cfft-1)) {
+            progress = 1;
+            remaining = 0;
+            fraction_done(progress,remaining);
+        }
+        retval = checkpoint();
+        if (retval) SETIERROR(retval,"from checkpoint() in seti_analyse()");
+
+    } // loop over chirp/fftlen pairs
+#else
     for (icfft = state.icfft; icfft < num_cfft; icfft++) {
         fftlen    = ChirpFftPairs[icfft].FftLen;
         chirprate = ChirpFftPairs[icfft].ChirpRate;
@@ -742,7 +914,8 @@ int seti_analyze (ANALYSIS_STATE& state) {
         retval = checkpoint();
         if (retval) SETIERROR(retval,"from checkpoint() in seti_analyse()");
 
-    } // loop over chirp/fftlen paris
+    } // loop over chirp/fftlen pairs
+#endif
 
     // Return the "best of" signals.  This may include duplicates of
     // already reported interesting signals.
