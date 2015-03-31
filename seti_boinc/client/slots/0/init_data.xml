@@ -1,0 +1,115 @@
+<app_init_data>
+<major_version>7</major_version>
+<minor_version>4</minor_version>
+<release>36</release>
+<app_version>700</app_version>
+<userid>9760936</userid>
+<teamid>0</teamid>
+<hostid>7522079</hostid>
+<app_name>setiathome_v7</app_name>
+<user_name>JohnStrat</user_name>
+<project_dir>C:\ProgramData\BOINC/projects/setiathome.berkeley.edu</project_dir>
+<boinc_dir>C:\ProgramData\BOINC</boinc_dir>
+<authenticator>25a6dee2e590693e7d4afdfa1146da2c</authenticator>
+<wu_name>28my12ac.28765.12080.438086664195.12.177.vlar</wu_name>
+<result_name>28my12ac.28765.12080.438086664195.12.177.vlar_1</result_name>
+<comm_obj_name>boinc_1</comm_obj_name>
+<slot>0</slot>
+<client_pid>6000</client_pid>
+<wu_cpu_time>513.321300</wu_cpu_time>
+<starting_elapsed_time>524.993827</starting_elapsed_time>
+<using_sandbox>0</using_sandbox>
+<vm_extensions_disabled>0</vm_extensions_disabled><user_total_credit>3619.768602</user_total_credit>
+<user_expavg_credit>0.086697</user_expavg_credit>
+<host_total_credit>0.000000</host_total_credit>
+<host_expavg_credit>0.000000</host_expavg_credit>
+<resource_share_fraction>1.000000</resource_share_fraction>
+<checkpoint_period>60.000000</checkpoint_period>
+<fraction_done_start>0.000000</fraction_done_start>
+<fraction_done_end>1.000000</fraction_done_end>
+<gpu_type></gpu_type>
+<gpu_device_num>-1</gpu_device_num>
+<gpu_opencl_dev_index>-1</gpu_opencl_dev_index>
+<gpu_usage>0.000000</gpu_usage>
+<ncpus>1.000000</ncpus>
+<rsc_fpops_est>183887307748840.000000</rsc_fpops_est>
+<rsc_fpops_bound>3677746154976800.000000</rsc_fpops_bound>
+<rsc_memory_bound>33554432.000000</rsc_memory_bound>
+<rsc_disk_bound>33554432.000000</rsc_disk_bound>
+<computation_deadline>1430793978.000000</computation_deadline>
+<vbox_window>0</vbox_window>
+<host_info>
+    <timezone>-14400</timezone>
+    <domain_name>Win7Pro</domain_name>
+    <ip_addr>192.168.0.8</ip_addr>
+    <host_cpid>2115de630ec90f6af6c21ab4dbb22143</host_cpid>
+    <p_ncpus>12</p_ncpus>
+    <p_vendor>GenuineIntel</p_vendor>
+    <p_model>       Intel(R) Core(TM) i7-4930K CPU @ 3.40GHz [Family 6 Model 62 Stepping 4]</p_model>
+    <p_features>fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss htt tm pni ssse3 cx16 sse4_1 sse4_2 popcnt aes f16c rdrandsyscall nx lm avx vmx tm2 dca pbe fsgsbase smep</p_features>
+    <p_fpops>3967992782.937617</p_fpops>
+    <p_iops>10382396268.879633</p_iops>
+    <p_membw>83333333.333333</p_membw>
+    <p_calculated>1426205460.829464</p_calculated>
+    <p_vm_extensions_disabled>0</p_vm_extensions_disabled>
+    <m_nbytes>25708519424.000000</m_nbytes>
+    <m_cache>262144.000000</m_cache>
+    <m_swap>51415138304.000000</m_swap>
+    <d_total>511868665856.000000</d_total>
+    <d_free>301181435904.000000</d_free>
+    <os_name>Microsoft Windows 7</os_name>
+    <os_version>Professional N x64 Edition, Service Pack 1, (06.01.7601.00)</os_version>
+    <virtualbox_version>4.3.22</virtualbox_version>
+    <coprocs>
+    </coprocs>
+</host_info>
+<proxy_info>
+    <socks_server_name></socks_server_name>
+    <socks_server_port>0</socks_server_port>
+    <http_server_name></http_server_name>
+    <http_server_port>0</http_server_port>
+    <socks5_user_name></socks5_user_name>
+    <socks5_user_passwd></socks5_user_passwd>
+    <http_user_name></http_user_name>
+    <http_user_passwd></http_user_passwd>
+    <no_proxy></no_proxy>
+</proxy_info>
+<global_preferences>
+   <source_project></source_project>
+   <mod_time>0.000000</mod_time>
+   <battery_charge_min_pct>90.000000</battery_charge_min_pct>
+   <battery_max_temperature>40.000000</battery_max_temperature>
+   <run_on_batteries>0</run_on_batteries>
+   <run_if_user_active>1</run_if_user_active>
+   <run_gpu_if_user_active>0</run_gpu_if_user_active>
+   <suspend_if_no_recent_input>0.000000</suspend_if_no_recent_input>
+   <suspend_cpu_usage>25.000000</suspend_cpu_usage>
+   <start_hour>0.000000</start_hour>
+   <end_hour>0.000000</end_hour>
+   <net_start_hour>0.000000</net_start_hour>
+   <net_end_hour>0.000000</net_end_hour>
+   <leave_apps_in_memory>0</leave_apps_in_memory>
+   <confirm_before_connecting>1</confirm_before_connecting>
+   <hangup_if_dialed>0</hangup_if_dialed>
+   <dont_verify_images>0</dont_verify_images>
+   <work_buf_min_days>0.100000</work_buf_min_days>
+   <work_buf_additional_days>0.500000</work_buf_additional_days>
+   <max_ncpus_pct>0.000000</max_ncpus_pct>
+   <cpu_scheduling_period_minutes>60.000000</cpu_scheduling_period_minutes>
+   <disk_interval>60.000000</disk_interval>
+   <disk_max_used_gb>100.000000</disk_max_used_gb>
+   <disk_max_used_pct>90.000000</disk_max_used_pct>
+   <disk_min_free_gb>0.100000</disk_min_free_gb>
+   <vm_max_used_pct>75.000000</vm_max_used_pct>
+   <ram_max_used_busy_pct>50.000000</ram_max_used_busy_pct>
+   <ram_max_used_idle_pct>90.000000</ram_max_used_idle_pct>
+   <idle_time_to_run>3.000000</idle_time_to_run>
+   <max_bytes_sec_up>0.000000</max_bytes_sec_up>
+   <max_bytes_sec_down>0.000000</max_bytes_sec_down>
+   <cpu_usage_limit>70.000000</cpu_usage_limit>
+   <daily_xfer_limit_mb>0.000000</daily_xfer_limit_mb>
+   <daily_xfer_period_days>0</daily_xfer_period_days>
+   <override_file_present>1</override_file_present>
+   <network_wifi_only>0</network_wifi_only>
+</global_preferences>
+</app_init_data>

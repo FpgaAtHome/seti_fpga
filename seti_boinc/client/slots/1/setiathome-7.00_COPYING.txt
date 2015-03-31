@@ -1,0 +1,1 @@
+<soft_link>../../projects/setiathome.berkeley.edu/setiathome-7.00_COPYING.txt</soft_link>

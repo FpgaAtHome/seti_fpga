@@ -1,0 +1,1 @@
+<soft_link>../../projects/setiathome.berkeley.edu/setiathome-7.00_COPYRIGHT.txt</soft_link>

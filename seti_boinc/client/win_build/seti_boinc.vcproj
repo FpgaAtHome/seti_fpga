@@ -88,7 +88,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="delayimp.lib gdi32.lib user32.lib kernel32.lib libcmt.lib libcpmt.lib winmm.lib opengl32.lib glu32.lib oldnames.lib ole32.lib libfftw3f-3.lib asmlibm.lib psapi.lib"
-				OutputFile="$(OutDir)\setiathome_7.00_windows_intelx86.exe"
+				OutputFile="$(SolutionDir)..\projects\setiathome.berkeley.edu\setiathome_7.00_windows_intelx86.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\vector"
@@ -310,7 +310,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="gdi32.lib user32.lib kernel32.lib winmm.lib opengl32.lib glu32.lib oldnames.lib libfftw3f-3.lib psapi.lib"
 				ShowProgress="2"
-				OutputFile="Debug/setiathome_7.00_windows_intelx86.exe"
+				OutputFile="$(SolutionDir)..\projects\setiathome.berkeley.edu\setiathome_7.00_windows_intelx86.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(SolutionDir)"
