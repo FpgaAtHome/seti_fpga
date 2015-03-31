@@ -18,6 +18,8 @@
 #ifndef _WIN_UTIL_
 #define _WIN_UTIL_
 
+#define STANDALONE_MODE 1
+
 extern BOOL IsWindows2000Compatible();extern BOOL IsTerminalServicesEnabled();
 extern BOOL ValidateProductSuite(LPSTR SuiteName);
 extern BOOL TerminateProcessById(DWORD dwProcessId);

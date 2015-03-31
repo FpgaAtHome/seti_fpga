@@ -379,6 +379,10 @@ static void handle_heartbeat_msg() {
 }
 
 static bool client_dead() {
+#define STANDALONE_MODE
+#ifdef STANDALONE_MODE
+	return false;
+#else
     bool dead;
     if (aid.client_pid) {
         // check every 10 sec
@@ -417,6 +421,7 @@ static bool client_dead() {
         return true;
     }
     return false;
+#endif
 }
 
 #ifndef _WIN32
@@ -494,8 +499,10 @@ int boinc_init_options(BOINC_OPTIONS* opt) {
 #endif
     retval = boinc_init_options_general(*opt);
     if (retval) return retval;
+#ifndef STANDALONE_MODE
     retval = start_timer_thread();
     if (retval) return retval;
+#endif
 #ifndef _WIN32
     retval = start_worker_signals();
     if (retval) return retval;
