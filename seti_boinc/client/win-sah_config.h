@@ -464,6 +464,7 @@ typedef ptrdiff_t ssize_t;
 /* Define as `fork' if `vfork' does not work. */
 /* #undef vfork */
 
+#define USE_FPGA 1
 #if defined(HAVE_LIBFFTW)
 #define USE_FFTWF
 #endif
