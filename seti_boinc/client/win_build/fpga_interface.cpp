@@ -1,20 +1,16 @@
 
 #include "fpga_interface.h"
 
-#define MAX_NUM_FFTS 64
-
-
 int FpgaInterface::initializeFpga(
 				unsigned long bitfield
 				)
 {
-	fftwf_plan analysis_plans[MAX_NUM_FFTS];
 	unsigned long FftLen = 1;
 	sah_complex* WorkData = NULL;
 
 	while (bitfield != 0) {
 		if (bitfield & 1) {
-			swi.analysis_fft_lengths[FftNum] = FftLen;
+			analysis_fft_lengths[FftNum] = FftLen;
 
 			WorkData = (sah_complex *)malloc_a(FftLen * sizeof(sah_complex),MEM_ALIGN);
 			sah_complex *scratch=(sah_complex *)malloc_a(FftLen*sizeof(sah_complex),MEM_ALIGN);
@@ -41,10 +37,10 @@ int FpgaInterface::initializeFpga(
 }
 
 int FpgaInterface::setInitialData(
-	  				sah_complex* DataIn, int NumDataPoints
-								  )
+  				sah_complex* DataIn, int NumDataPoints
+				  )
 {
-	sah_complex* DataIn_ = (sah_complex *)malloc_a(NumDataPoints * sizeof(sah_complex),MEM_ALIGN);
+	DataIn_ = (sah_complex *)malloc_a(NumDataPoints * sizeof(sah_complex), MEM_ALIGN);
 	memcpy(DataIn_, DataIn, NumDataPoints * sizeof(sah_complex) );
 	
 	return 0;
