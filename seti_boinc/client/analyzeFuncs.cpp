@@ -224,8 +224,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
     float * CoeffTab[MAX_NUM_FFTS];
 #endif
 #ifdef USE_FPGA
-	FpgaInterface fpgaInterface;
-	fpgaInterface.initializeFpga();
+	FpgaInterface fpgaInterface;	
 #endif
 
     // Allocate data array and work area arrays.
@@ -250,7 +249,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
     FILE *wisdom;
     std::string wisdom_path("wisdom.sah");
     double wisdom_size=0;
-
+// libfft wisdom files are used for importing and exporting plans
     if ((file_size(wisdom_path.c_str(),wisdom_size)==0) && (wisdom_size>512)) {
         if ((wisdom=boinc_fopen(wisdom_path.c_str(),"r"))) {
 #ifdef HAVE_MUNMAP 
@@ -296,6 +295,11 @@ int seti_analyze (ANALYSIS_STATE& state) {
 #ifdef BOINC_APP_GRAPHICS
     if (sah_graphics) strcpy(sah_graphics->status, "Generating FFT Coefficients");
 #endif
+
+#ifdef USE_FPGA
+	fpgaInterface.initializeFpga(bitfield);
+#endif
+
     while (bitfield != 0) {
         if (bitfield & 1) {
             swi.analysis_fft_lengths[FftNum]=FftLen;
@@ -312,7 +316,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
             if (BitRevTab[FftNum] == NULL)  SETIERROR(MALLOC_FAILED, "BitRevTab[FftNum] == NULL");
             BitRevTab[FftNum][0] = 0;
 #else
-
             WorkData = (sah_complex *)malloc_a(FftLen * sizeof(sah_complex),MEM_ALIGN);
             sah_complex *scratch=(sah_complex *)malloc_a(FftLen*sizeof(sah_complex),MEM_ALIGN);
             if ((WorkData == NULL) || (scratch==NULL)) {
@@ -500,7 +503,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
     double last_ptime=0;
     int rollovers=0;
     double clock_max=0;
-#ifdef USE_FPGA
+
 // Main Analysis loop
 // ends around line 656
 	for (icfft = state.icfft; icfft < num_cfft; icfft++) {
@@ -568,10 +571,13 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
 		fprintf(stderr, "\nNumFfts=%d", NumFfts);
 
+#ifdef USE_FPGA
+		fpgaInterface.setInitialData(DataIn, NumDataPoints);
+		
         for (ifft = 0; ifft < NumFfts; ifft++) {
             // boinc_worker_timer();
             CurrentSub = fftlen * ifft;
-			fprintf(stderr, "\nCurrentSub=%d", CurrentSub);
+			fprintf(stderr, "\nifft=%d, CurrentSub=%d", ifft, CurrentSub);
 			// Run a Dft based on the analysis plan
 
             state.FLOP_counter+=5*(double)fftlen*log((double)fftlen)/log(2.0);
@@ -580,17 +586,15 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
             // replace freq with power
             state.FLOP_counter+=(double)fftlen;
-			fprintf(stderr, "GetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
+			fprintf(stderr, "\nGetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
             GetPowerSpectrum( WorkData,
                               &PowerSpectrum[CurrentSub],
                               fftlen
                             );
 
-	    if (fftlen==(long)ac_fft_len) {
-	      state.FLOP_counter+=((double)fftlen)*5*log((double)fftlen)/log(2.0)+2*fftlen;
-
+		    if (fftlen==(long)ac_fft_len) {
+		      state.FLOP_counter+=((double)fftlen)*5*log((double)fftlen)/log(2.0)+2*fftlen;
               fftwf_execute_r2r(autocorr_plan,&PowerSpectrum[CurrentSub],AutoCorrelation);
-
             }
 	        
             // any ETIs ?!
@@ -634,6 +638,12 @@ int seti_analyze (ANALYSIS_STATE& state) {
             //fprintf(stderr, "S fft len %d  progress = %12.10f\n", fftlen, progress);
         } // loop through chirped data array
 
+		// Do Fpga Analysis here
+		fpgaInterface.runAnalysis();
+		// Compare results here
+		fpgaInterface.compareResults(PowerSpectrum);
+#endif // END USE_FPGA
+
         fraction_done(progress,remaining);
         // jeffc
         //fprintf(stderr, "Sdone fft len %d  progress = %12.10f\n", fftlen, progress);
@@ -668,6 +678,9 @@ int seti_analyze (ANALYSIS_STATE& state) {
         if (retval) SETIERROR(retval,"from checkpoint() in seti_analyse()");
 
     } // loop over chirp/fftlen pairs
+
+
+#ifdef USE_OLD_MAIN
 #else
     for (icfft = state.icfft; icfft < num_cfft; icfft++) {
         fftlen    = ChirpFftPairs[icfft].FftLen;
