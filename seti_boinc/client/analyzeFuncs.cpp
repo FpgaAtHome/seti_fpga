@@ -460,7 +460,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
     }
 
     // Smooth Baseline
-
 #ifdef DO_SMOOTH
 #ifdef BOINC_APP_GRAPHICS
     if (sah_graphics) strcpy(sah_graphics->status, "Doing Baseline Smoothing");
@@ -472,11 +471,10 @@ int seti_analyze (ANALYSIS_STATE& state) {
     if (retval) SETIERROR(retval,"from BaseLineSmooth");
 #endif
 
-
     // used to calculate percent done
     //ProgressUnitSize = GetProgressUnitSize(NumDataPoints, num_cfft, swi);
     ProgressUnitSize = GetProgressUnitSize(NumDataPoints, num_cfft, ac_fft_len);
-    //#define DUMP_CHIRP
+//#define DUMP_CHIRP
 #ifdef DUMP_CHIRP
     // dump chirp/fft pairs and exit.
     fprintf(stderr, "size  = %d MinChirpStep = %f\n", num_cfft, MinChirpStep);
@@ -494,11 +492,10 @@ int seti_analyze (ANALYSIS_STATE& state) {
     exit(0);
 #endif
 
-
     boinc_wu_cpu_time(cputime0);
     reset_units();
+    
     double chirp_units=0;
-
     // Loop through chirp/fft pairs - this is the top level analysis loop.
     double last_ptime=0;
     int rollovers=0;
@@ -547,7 +544,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
         // each fftlen long on the frequency axis and sample time long
         // on the time axis.
         // As we go along, we check each spectra for spikes.
-
         state.icfft = icfft;     // update analysis state
 
         // Find index into FFT length table for the current
@@ -568,11 +564,10 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
         // Number of FFTs for this length
         NumFfts   = NumDataPoints / fftlen;
-
-		fprintf(stderr, "\nNumFfts=%d", NumFfts);
+	fprintf(stderr, "\nNumFfts=%d", NumFfts);
 
 #ifdef USE_FPGA
-		fpgaInterface.setInitialData(DataIn, NumDataPoints);
+	fpgaInterface.setInitialData(DataIn, NumDataPoints);
 		
         for (ifft = 0; ifft < NumFfts; ifft++) {
             // boinc_worker_timer();
@@ -629,19 +624,16 @@ int seti_analyze (ANALYSIS_STATE& state) {
                 }
             }
 
-            //progress = ((float)icfft)/num_cfft + ((float)ifft)/(NumFfts*num_cfft);
-            progress = std::min(progress,1.0);
-            remaining=1.0-(double)(icfft+1)/num_cfft;
-            fraction_done(progress,remaining);
-			fprintf(stderr, "\nprogress=%f, remaining=%f", progress, remaining);
-            // jeffc
-            //fprintf(stderr, "S fft len %d  progress = %12.10f\n", fftlen, progress);
+        progress = std::min(progress,1.0);
+        remaining = 1.0-(double)(icfft+1)/num_cfft;
+        fraction_done(progress,remaining);
+	fprintf(stderr, "\nprogress=%f, remaining=%f", progress, remaining);
         } // loop through chirped data array
 
-		// Do Fpga Analysis here
-		fpgaInterface.runAnalysis();
-		// Compare results here
-		fpgaInterface.compareResults(PowerSpectrum);
+	// Do Fpga Analysis here
+	fpgaInterface.runAnalysis();
+	// Compare results here
+	fpgaInterface.compareResults(PowerSpectrum);
 #endif // END USE_FPGA
 
         fraction_done(progress,remaining);
