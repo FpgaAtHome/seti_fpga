@@ -5,43 +5,42 @@ int FpgaInterface::initializeFpga(
 				unsigned long bitfield
 				)
 {
+	// Verify the values of the following variables:
 	unsigned long FftLen = 1;
+	int FftNum = 0;
+	int analysis_fft_lengths[32];
+//#define FFTW_MEASURE_OR_ESTIMATE ((app_init_data.host_info.m_nbytes >= MIN_TRANSPOSE_MEMORY)?FFTW_MEASURE:FFTW_ESTIMATE)
+
 	sah_complex* WorkData = NULL;
 
 	while (bitfield != 0) {
 		if (bitfield & 1) {
 			analysis_fft_lengths[FftNum] = FftLen;
-
-			WorkData = (sah_complex *)malloc_a(FftLen * sizeof(sah_complex),MEM_ALIGN);
-			sah_complex *scratch=(sah_complex *)malloc_a(FftLen*sizeof(sah_complex),MEM_ALIGN);
+			WorkData             = (sah_complex *)malloc_a(FftLen * sizeof(sah_complex), MEM_ALIGN);
+			sah_complex *scratch = (sah_complex *)malloc_a(FftLen * sizeof(sah_complex), MEM_ALIGN);
 			if ((WorkData == NULL) || (scratch==NULL)) {
-				SETIERROR(MALLOC_FAILED, "WorkData == NULL || scratch == NULL");
+				// Trap Error
 			}
-
 			fprintf(stderr, "\nplan_dft_1d(Fftlen=%d", FftLen);
-			analysis_plans[FftNum] = fftwf_plan_dft_1d(
-									FftLen,
-									scratch, 
-									WorkData, 
-									FFTW_BACKWARD, 
-									FFTW_MEASURE_OR_ESTIMATE|FFTW_PRESERVE_INPUT);
-
+			analysis_plans[FftNum] = fftwf_plan_dft_1d(FftLen, scratch, WorkData,
+										FFTW_BACKWARD,
+										FFTW_MEASURE_OR_ESTIMATE|FFTW_PRESERVE_INPUT);
 			FftNum++;
 			free_a(scratch);
 			free_a(WorkData);
 		}
-		FftLen*=2;
-		bitfield>>=1;
+		FftLen * =2;
+		bitfield >>= 1;
 	}
 	return 0;
 }
 
 int FpgaInterface::setInitialData(
-  				sah_complex* DataIn, int NumDataPoints
+  				sah_complex* ChirpedData, int NumDataPoints
 				  )
 {
-	DataIn_ = (sah_complex *)malloc_a(NumDataPoints * sizeof(sah_complex), MEM_ALIGN);
-	memcpy(DataIn_, DataIn, NumDataPoints * sizeof(sah_complex) );
+	ChirpedData_ = (sah_complex *)malloc_a(NumDataPoints * sizeof(sah_complex), MEM_ALIGN);
+	memcpy(ChirpedData_, ChirpedData, NumDataPoints * sizeof(sah_complex) );
 	
 	return 0;
 }
