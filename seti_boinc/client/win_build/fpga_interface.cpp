@@ -32,6 +32,9 @@ int FpgaInterface::initializeFpga(
 		FftLen * =2;
 		bitfield >>= 1;
 	}
+	
+	WorkData = (sah_complex *)malloc_a(FftLen/2 * sizeof(sah_complex),MEM_ALIGN);
+	
 	return 0;
 }
 
@@ -46,24 +49,21 @@ int FpgaInterface::setInitialData(
 }
 
 void FpgaInterface::runAnalysis(
-	int NumFfts
+	int NumFfts,
+	int fftlen,
+	unsigned long ac_fft_len
 	)
 {
-	float* PowerSpectrum = NULL;
-	PowerSpectrum = (float*) calloc_a(NumDataPoints, sizeof(float), MEM_ALIGN);
+	float* PowerSpectrum   = (float*) calloc_a(NumDataPoints, sizeof(float), MEM_ALIGN);
+	float* AutoCorrelation = (float*) calloc_a(   ac_fft_len, sizeof(float), MEM_ALIGN);
+
 	int CurrentSub;
 	for (int ifft = 0; ifft < NumFfts; ifft++) {
 		// boinc_worker_timer();
 		CurrentSub = fftlen * ifft;
 		fprintf(stderr, "\nifft=%d, CurrentSub=%d", ifft, CurrentSub);
-		// Run a Dft based on the analysis plan
-
-		//state.FLOP_counter+=5*(double)fftlen*log((double)fftlen)/log(2.0);
 
 		fftwf_execute_dft(analysis_plans[FftNum], &ChirpedData[CurrentSub], WorkData);
-
-		// replace freq with power
-		//state.FLOP_counter+=(double)fftlen;
 		fprintf(stderr, "\nGetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
 		GetPowerSpectrum(WorkData,
 				 &PowerSpectrum[CurrentSub],
