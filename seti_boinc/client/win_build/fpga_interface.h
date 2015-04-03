@@ -18,19 +18,24 @@ public:
 
 	// Load the NI Drivers and make sure a good/valid connection 
 	// is made to the FPGA
-	int initializeFft(
+	int initializeFpga(
 						unsigned long bitfield,
 						unsigned long ac_fft_len
-					);
+								);
 
 	int setInitialData(
 	  					sah_complex* ChirpedData,
-						int NumDataPoints,
-						int FftNum,
-						int fftlen
-					  );
+						int NumDataPoints
+								  );
 
-	void runAnalysis();
+	void runAnalysis(
+		int NumFfts,
+		int NumDataPoints,
+		int fftlen,
+		int ifft,
+		int FftNum,
+		unsigned long ac_fft_len
+		);
 	void compareResults(float *PowerSpectrum);
 
 private:

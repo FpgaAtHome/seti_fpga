@@ -4,24 +4,7 @@
 #include "malloc_a.h"
 #define FFTW_MEASURE_OR_ESTIMATE ((app_init_data.host_info.m_nbytes >= MIN_TRANSPOSE_MEMORY)?FFTW_MEASURE:FFTW_ESTIMATE)
 
-
-int GetPowerSpectrum(
-    sah_complex* FreqData,
-    float* PowerSpectrum,
-    int NumDataPoints) 
-{
-    int i;
-
-    //analysis_state.FLOP_counter+=3.0*NumDataPoints;
-    for (i = 0; i < NumDataPoints; i++) {
-        PowerSpectrum[i] = FreqData[i][0] * FreqData[i][0]
-                           + FreqData[i][1] * FreqData[i][1];
-    }
-    return 0;
-}
-
-
-int FpgaInterface::initializeFft(
+int FpgaInterface::initializeFpga(
 				unsigned long bitfield,
 				unsigned long ac_fft_len
 				)
@@ -35,6 +18,7 @@ int FpgaInterface::initializeFft(
 //#define FFTW_MEASURE_OR_ESTIMATE ((app_init_data.host_info.m_nbytes >= MIN_TRANSPOSE_MEMORY)?FFTW_MEASURE:FFTW_ESTIMATE)
 
 	sah_complex* WorkData = NULL;
+	int FftNum=0;
 
 	// Set up DFFT plans
 	while (bitfield != 0) {
@@ -44,13 +28,22 @@ int FpgaInterface::initializeFft(
 			sah_complex *scratch = (sah_complex *)malloc_a(FftLen * sizeof(sah_complex), MEM_ALIGN);
 			if ((WorkData == NULL) || (scratch==NULL)) {
 				// Trap this error - not enough memory
-				// FATAL
 			}
 
 			fprintf(stderr, "\nFpgaInterface::initializeFpga \t plan_dft_1d(Fftlen=%d", FftLen);
 			analysis_plans[FftNum] = fftwf_plan_dft_1d(FftLen, scratch, WorkData,
 										FFTW_BACKWARD,
 										FFTW_MEASURE|FFTW_PRESERVE_INPUT);
+//										FFTW_MEASURE_OR_ESTIMATE|FFTW_PRESERVE_INPUT);
+/*
+			fprintf(stderr, "\nplan_dft_1d(Fftlen=%d", FftLen);
+			analysis_plans[FftNum] = fftwf_plan_dft_1d(
+									FftLen,
+									scratch, 
+									WorkData, 
+									FFTW_BACKWARD, 
+									FFTW_MEASURE_OR_ESTIMATE|FFTW_PRESERVE_INPUT);
+*/
 			FftNum++;
 			free_a(scratch);
 			free_a(WorkData);
@@ -59,27 +52,13 @@ int FpgaInterface::initializeFft(
 		bitfield >>= 1;
 	}
 
-	// Set up auto correct plan
-	float *out = (float *)malloc_a(ac_fft_len*sizeof(float),MEM_ALIGN);
-	float *scratch=(float *)malloc_a(ac_fft_len*sizeof(float),MEM_ALIGN);
-	if ((WorkData == NULL) || (scratch==NULL)) {
-		// Trap this error - not enough memory
-		// FATAL
-	}
-	autocorr_plan = fftwf_plan_r2r_1d(
-							ac_fft_len,
-							scratch,
-							out,
-							FFTW_REDFT10,
-							FFTW_MEASURE|FFTW_PRESERVE_INPUT);
-	free_a(scratch);
-	free_a(out);
-
 	// Allocate memory in WorkData to be used by libfft
 //	float *out= (float *)malloc_a(ac_fft_len*sizeof(float),MEM_ALIGN);
 //	float *scratch=(float *)malloc_a(ac_fft_len*sizeof(float),MEM_ALIGN);
 	WorkData_ = (sah_complex *)malloc_a(FftLen/2 * sizeof(sah_complex),MEM_ALIGN);
 
+	
+	WorkData = (sah_complex *)malloc_a(FftLen/2 * sizeof(sah_complex),MEM_ALIGN);
 	return 0;
 }
 
