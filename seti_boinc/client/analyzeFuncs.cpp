@@ -326,6 +326,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
 #ifdef USE_MANUAL_CALLSTACK
             call_stack.enter("fftwf_plan_dft_1d()");
 #endif
+			int x = FFTW_MEASURE_OR_ESTIMATE;
 			fprintf(stderr, "\nplan_dft_1d(Fftlen=%d", FftLen);
             analysis_plans[FftNum] = fftwf_plan_dft_1d(FftLen, scratch, WorkData, FFTW_BACKWARD, FFTW_MEASURE_OR_ESTIMATE|FFTW_PRESERVE_INPUT);
 #ifdef USE_MANUAL_CALLSTACK
@@ -564,10 +565,10 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
         // Number of FFTs for this length
         NumFfts   = NumDataPoints / fftlen;
-	fprintf(stderr, "\nNumFfts=%d", NumFfts);
+		fprintf(stderr, "\nNumFfts=%d", NumFfts);
 
 #ifdef USE_FPGA
-	fpgaInterface.setInitialData(DataIn, NumDataPoints);
+	fpgaInterface.setInitialData(ChirpedData, NumDataPoints);
 		
         for (ifft = 0; ifft < NumFfts; ifft++) {
             // boinc_worker_timer();
@@ -627,11 +628,14 @@ int seti_analyze (ANALYSIS_STATE& state) {
         progress = std::min(progress,1.0);
         remaining = 1.0-(double)(icfft+1)/num_cfft;
         fraction_done(progress,remaining);
-	fprintf(stderr, "\nprogress=%f, remaining=%f", progress, remaining);
+		fprintf(stderr, "\nprogress=%f, remaining=%f", progress, remaining);
         } // loop through chirped data array
 
 	// Do Fpga Analysis here
-	fpgaInterface.runAnalysis();
+	fpgaInterface.runAnalysis(
+		NumFfts, NumDataPoints,
+		fftlen, ifft, FftNum,
+		ac_fft_len);
 	// Compare results here
 	fpgaInterface.compareResults(PowerSpectrum);
 #endif // END USE_FPGA

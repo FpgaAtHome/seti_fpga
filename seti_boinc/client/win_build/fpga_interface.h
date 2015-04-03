@@ -2,6 +2,8 @@
 #ifndef _FPGA_INTERFACE_H_
 #define _FPGA_INTERFACE_H_
 
+#include "fftw3.h"
+
 #define MAX_NUM_FFTS 64
 #define USA_FPGA
 
@@ -17,19 +19,31 @@ public:
 	// Load the NI Drivers and make sure a good/valid connection 
 	// is made to the FPGA
 	int initializeFpga(
-						unsigned long bitfield
+						unsigned long bitfield,
+						unsigned long ac_fft_len
 								);
 
 	int setInitialData(
-	  					sah_complex* DataIn,
+	  					sah_complex* ChirpedData,
 						int NumDataPoints
 								  );
 
-	void runAnalysis();
+	void runAnalysis(
+		int NumFfts,
+		int NumDataPoints,
+		int fftlen,
+		int ifft,
+		int FftNum,
+		unsigned long ac_fft_len
+		);
 	void compareResults(float *PowerSpectrum);
 
 private:
 	fftwf_plan analysis_plans[MAX_NUM_FFTS];
-	sah_complex* DataIn_;
+	fftwf_plan autocorr_plan;
+
+	sah_complex* ChirpedData_;
+	sah_complex* WorkData;
+	int analysis_fft_lengths[32];
 };
 #endif
