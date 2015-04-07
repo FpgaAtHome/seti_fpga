@@ -18,24 +18,19 @@ public:
 
 	// Load the NI Drivers and make sure a good/valid connection 
 	// is made to the FPGA
-	int initializeFpga(
+	int initializeFft(
 						unsigned long bitfield,
 						unsigned long ac_fft_len
-								);
+					);
 
 	int setInitialData(
 	  					sah_complex* ChirpedData,
-						int NumDataPoints
-								  );
+						int NumDataPoints,
+						int FftNum,
+						int fftlen
+					  );
 
-	void runAnalysis(
-		int NumFfts,
-		int NumDataPoints,
-		int fftlen,
-		int ifft,
-		int FftNum,
-		unsigned long ac_fft_len
-		);
+	void runAnalysis();
 	void compareResults(float *PowerSpectrum);
 
 private:
@@ -43,7 +38,14 @@ private:
 	fftwf_plan autocorr_plan;
 
 	sah_complex* ChirpedData_;
-	sah_complex* WorkData;
+	sah_complex* WorkData_;
+	float* PowerSpectrum_;
+
 	int analysis_fft_lengths[32];
+
+	int NumDataPoints_;
+	int NumFfts_;
+	int FftNum_;
+	int fftlen_;
 };
 #endif
