@@ -4,7 +4,24 @@
 #include "malloc_a.h"
 #define FFTW_MEASURE_OR_ESTIMATE ((app_init_data.host_info.m_nbytes >= MIN_TRANSPOSE_MEMORY)?FFTW_MEASURE:FFTW_ESTIMATE)
 
-int FpgaInterface::initializeFpga(
+
+int GetPowerSpectrum(
+    sah_complex* FreqData,
+    float* PowerSpectrum,
+    int NumDataPoints) 
+{
+    int i;
+
+    //analysis_state.FLOP_counter+=3.0*NumDataPoints;
+    for (i = 0; i < NumDataPoints; i++) {
+        PowerSpectrum[i] = FreqData[i][0] * FreqData[i][0]
+                           + FreqData[i][1] * FreqData[i][1];
+    }
+    return 0;
+}
+
+
+int FpgaInterface::initializeFft(
 				unsigned long bitfield,
 				unsigned long ac_fft_len
 				)
@@ -18,7 +35,6 @@ int FpgaInterface::initializeFpga(
 //#define FFTW_MEASURE_OR_ESTIMATE ((app_init_data.host_info.m_nbytes >= MIN_TRANSPOSE_MEMORY)?FFTW_MEASURE:FFTW_ESTIMATE)
 
 	sah_complex* WorkData = NULL;
-	int FftNum=0;
 
 	// Set up DFFT plans
 	while (bitfield != 0) {
@@ -90,6 +106,11 @@ void FpgaInterface::runAnalysis()
 		CurrentSub = fftlen_ * ifft;
 		fprintf(stderr, "\nifft=%d, CurrentSub=%d", ifft, CurrentSub);
 
+		fftwf_execute_dft(analysis_plans[FftNum], &ChirpedData[CurrentSub], WorkData);
+		fprintf(stderr, "\nGetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
+		GetPowerSpectrum(WorkData,
+				 &PowerSpectrum[CurrentSub],
+				 fftlen
 		// this can be pulled out of this for loop
 		fftwf_execute_dft(analysis_plans[FftNum_], &ChirpedData_[CurrentSub], WorkData_);
 
