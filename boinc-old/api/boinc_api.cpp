@@ -499,10 +499,10 @@ int boinc_init_options(BOINC_OPTIONS* opt) {
 #endif
     retval = boinc_init_options_general(*opt);
     if (retval) return retval;
-#ifndef STANDALONE_MODE
+
     retval = start_timer_thread();
     if (retval) return retval;
-#endif
+
 #ifndef _WIN32
     retval = start_worker_signals();
     if (retval) return retval;
