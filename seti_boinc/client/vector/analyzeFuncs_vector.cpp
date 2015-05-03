@@ -368,8 +368,10 @@ CDtb ChirpDataFuncs[]={
     v_vChirpDataG4, BA_ALTVC, "v_vChirpDataG4",
     v_vChirpDataG5, BA_ALTVC, "v_vChirpDataG5",
 #endif
-#ifdef USE_SSE 
+#ifdef USE_SSE
+#ifdef _WIN64
     v_vChirpData_x86_64, BA_SSE2, "v_vChirpData_x86_64",
+#endif
     sse1_ChirpData_ak, BA_SSE, "sse1_ChirpData_ak",
     sse1_ChirpData_ak8e, BA_SSE, "sse1_ChirpData_ak8e",
     sse1_ChirpData_ak8h, BA_SSE, "sse1_ChirpData_ak8h",
