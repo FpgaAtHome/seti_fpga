@@ -126,6 +126,118 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy $(SolutionDir)libfftw3f-3-3_upx.dll  $(SolutionDir)..\projects\setiathome.berkeley.edu"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			OutputDirectory="$(SolutionDir)\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)\$(PlatformName)\$(ConfigurationName)\Intermediate\$(ProjectName)"
+			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\Release/seti_boinc.tlb"
+				HeaderFileName=""
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="./;../../../boinc-old/win_build;../..;../../../boinc-old;../../../boinc-old/api;../../../boinc-old/api/win;../../../boinc-old/client/win;../../../boinc-old/;../../../boinc-old/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;"
+				PreprocessorDefinitions="WIN32;_WIN32;_MT;NDEBUG;_WINDOWS;BOINC_APP_GRAPHICS;CLIENT;_CONSOLE"
+				StringPooling="true"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				EnableFunctionLevelLinking="true"
+				FloatingPointModel="2"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough="..\StdAfx.h"
+				PrecompiledHeaderFile=".\Release/seti_boinc.pch"
+				AssemblerListingLocation=".\Release/"
+				ObjectFile=".\Release/"
+				ProgramDataBaseFileName=".\Release/"
+				BrowseInformation="0"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="0"
+				CompileAs="2"
+				ForcedIncludeFiles="win-sah_config.h"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="delayimp.lib gdi32.lib user32.lib kernel32.lib libcmt.lib libcpmt.lib winmm.lib opengl32.lib glu32.lib oldnames.lib ole32.lib ../../../lib/fftw-3.1.2/libfftwf_sse.lib"
+				OutputFile="$(OutDir)\setiathome_6.91_windows_x86_64.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories=""
+				IgnoreAllDefaultLibraries="true"
+				IgnoreDefaultLibraryNames=""
+				DelayLoadDLLs="GLU32.DLL;OPENGL32.DLL;$(NOINHERIT)"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(OutDir)\$(TargetName).pdb"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
@@ -239,117 +351,6 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				CommandLine="copy $(SolutionDir)libfftw3f-3-3_upx.dll  $(SolutionDir)..\projects\setiathome.berkeley.edu"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|x64"
-			OutputDirectory="$(SolutionDir)\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\$(PlatformName)\$(ConfigurationName)\Intermediate\$(ProjectName)"
-			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
-				TargetEnvironment="3"
-				TypeLibraryName=".\Release/seti_boinc.tlb"
-				HeaderFileName=""
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./;../../../boinc-old/win_build;../..;../../../boinc-old;../../../boinc-old/api;../../../boinc-old/api/win;../../../boinc-old/client/win;../../../boinc-old/;../../../boinc-old/lib;..;../../image_libs;../../jpeglib;../../db;../../glut;../../;&quot;../../../lib/fftw-3.0.1/api&quot;"
-				PreprocessorDefinitions="WIN32;_WIN32;_MT;NDEBUG;_WINDOWS;BOINC_APP_GRAPHICS;CLIENT;_CONSOLE"
-				StringPooling="true"
-				RuntimeLibrary="0"
-				BufferSecurityCheck="false"
-				EnableFunctionLevelLinking="true"
-				FloatingPointModel="2"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="..\StdAfx.h"
-				PrecompiledHeaderFile=".\Release/seti_boinc.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
-				BrowseInformation="0"
-				WarningLevel="3"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-				CompileAs="2"
-				ForcedIncludeFiles="win-sah_config.h"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="delayimp.lib gdi32.lib user32.lib kernel32.lib libcmt.lib libcpmt.lib winmm.lib opengl32.lib glu32.lib oldnames.lib ole32.lib ../../../lib/fftw-3.1.2/libfftwf_sse.lib"
-				OutputFile="$(OutDir)\setiathome_6.91_windows_x86_64.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories=""
-				IgnoreAllDefaultLibraries="true"
-				IgnoreDefaultLibraryNames=""
-				DelayLoadDLLs="GLU32.DLL;OPENGL32.DLL;$(NOINHERIT)"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\$(TargetName).pdb"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="17"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
@@ -530,6 +531,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Benchmark.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\chirpfft.cpp"
 				>
 			</File>
@@ -643,6 +648,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Benchmark.h"
+				>
+			</File>
+			<File
 				RelativePath="..\chirpfft.h"
 				>
 			</File>
@@ -712,6 +721,10 @@
 			</File>
 			<File
 				RelativePath="..\seti_header.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\svn\seti_fpga\LabVIEW\builds\seti_labview\Seti_LabView\Seti_LabView.h"
 				>
 			</File>
 			<File

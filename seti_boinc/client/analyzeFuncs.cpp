@@ -125,6 +125,7 @@ const char *SAH_PACKAGE_STRING=CUSTOM_STRING;
 #include "filesys.h"
 #include "progress.h"
 #include "fpga_interface.h"
+#include "Benchmark.h"
 
 BaseLineSmooth_func BaseLineSmooth=v_BaseLineSmooth;
 GetPowerSpectrum_func GetPowerSpectrum=v_GetPowerSpectrum;
@@ -328,7 +329,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
             call_stack.enter("fftwf_plan_dft_1d()");
 #endif
 			int x = FFTW_MEASURE_OR_ESTIMATE;
-			fprintf(stderr, "\nplan_dft_1d(Fftlen=%d", FftLen);
+			fprintf(stderr, "\nplan_dft_1d(Fftlen=%d)", FftLen);
 			int iVal = FFTW_MEASURE_OR_ESTIMATE;
 			int eVal = FFTW_ESTIMATE;
 			int mVal = FFTW_MEASURE;
@@ -384,18 +385,19 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
     if (!state.icfft) {
 #ifdef CUSTOM_STRING
-        fprintf(stderr,"%s\n", CUSTOM_STRING);
+        fprintf(stderr,"\n%s\n", CUSTOM_STRING);
 #else
 	fprintf(stderr,"%s\n", SAH_PACKAGE_STRING);
 #endif
 #ifdef AVX_EMU
     fprintf(stderr,"Emulating AVX\n");
 #endif
-	fprintf(stderr,"%s\n\n", BOINC_PACKAGE_STRING);
-        fprintf(stderr,"Work Unit Info:\n");
-        fprintf(stderr,"...............\n");
-        fprintf(stderr,"WU true angle range is :  %f\n", swi.angle_range);
-    } else fprintf(stderr,"Restarted at %.2f percent.\n", progress*100);
+		fprintf(stderr,"\n%s\n\n", BOINC_PACKAGE_STRING);
+		fprintf(stderr,"Work Unit Info:\n");
+		fprintf(stderr,"...............\n");
+		fprintf(stderr,"WU true angle range is :  %f\n", swi.angle_range);
+    } else 
+		fprintf(stderr,"Restarted at %.2f percent.\n", progress*100);
     fflush(stderr);
 
     swi.num_fft_lengths=FftNum;
@@ -509,18 +511,29 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
 // Main Analysis loop
 // ends around line 656
+#ifdef USE_FPGA
+	fprintf(stderr, "\nnum_cfft = %d", num_cfft);
+	fprintf(stderr, "\n+------+");
+#endif
+	std::map<int, double> exeTimes;
+
+	fprintf(stderr,"\nEXE_TIMES\t[icfft]\tChirpRate\tChirpRateInd\tFftLen\tGaussFit\tPulseFind\tExe Time (ms)");
+	Benchmark entireRunBenchmark;
 	for (icfft = state.icfft; icfft < num_cfft; icfft++) {
+		Benchmark benchmark;
+
 		fftlen       = ChirpFftPairs[icfft].FftLen;
 		chirprate    = ChirpFftPairs[icfft].ChirpRate;
 		chirprateind = ChirpFftPairs[icfft].ChirpRateInd;
 		remaining    = 1.0 - (double)icfft/num_cfft;
 
-		fprintf(stderr, "\nfftlen=%d", fftlen);
-		fprintf(stderr, "\nchirprate=%f", chirprate);
-		fprintf(stderr, "\nchirprateind=%d", chirprateind);
-		fprintf(stderr, "\nNumDataPoints=%d", NumDataPoints);
+//		fprintf(stderr, "\nicfft=%d", icfft);
+//		fprintf(stderr, "\nfftlen=%d", fftlen);
+//		fprintf(stderr, "\nchirprate=%f", chirprate);
+//		fprintf(stderr, "\nchirprateind=%d", chirprateind);
+//		fprintf(stderr, "\nNumDataPoints=%d", NumDataPoints);
 
-		fprintf(stderr, "\nLoop over Chirp/Fft Pairs");
+//		fprintf(stderr, "\nLoop over Chirp/Fft Pairs");
 // We take DataIn, do a "chirp" operation on it and store
 // the results in ChirpedData
         if (chirprateind != last_chirp_ind) {
@@ -570,42 +583,42 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
         // Number of FFTs for this length
         NumFfts   = NumDataPoints / fftlen;
-		fprintf(stderr, "\nNumFfts=%d", NumFfts);
+//		fprintf(stderr, "\nNumFfts=%d", NumFfts);
 
 #ifdef USE_FPGA
 
-	// Do Fpga Analysis here
-	/*fpgaInterface.runAnalysis(
-		NumFfts, NumDataPoints,
-		fftlen, ifft, FftNum,
-		ac_fft_len,
-		state.PoT_freq_bin,
-		PoTInfo.SpikeMin,
-		state.FLOP_counter
-		);*/
-		fprintf(stderr, "\nFor icfft = %d", icfft);
-		fprintf(stderr, "\nBEFORE:");
-		fprintf(stderr, "\n\t state.FLOP_counter = %f", state.FLOP_counter);
-		fprintf(stderr, "\n\t state.PoT_freq_bin=%d", state.PoT_freq_bin);
+	//// Do Fpga Analysis here
+	///*fpgaInterface.runAnalysis(
+	//	NumFfts, NumDataPoints,
+	//	fftlen, ifft, FftNum,
+	//	ac_fft_len,
+	//	state.PoT_freq_bin,
+	//	PoTInfo.SpikeMin,
+	//	state.FLOP_counter
+	//	);*/
+	//	fprintf(stderr, "\nFor icfft = %d", icfft);
+	//	fprintf(stderr, "\nBEFORE:");
+	//	fprintf(stderr, "\n\t state.FLOP_counter = %f", state.FLOP_counter);
+	//	fprintf(stderr, "\n\t state.PoT_freq_bin=%d", state.PoT_freq_bin);
 
-		unsigned long ac_fft_len_ = ac_fft_len;
-		double FLOP_counter_ = state.FLOP_counter;
-		sah_complex* ChirpedData_ = (sah_complex *)malloc_a(NumDataPoints * sizeof(sah_complex),MEM_ALIGN);
-		float *AutoCorrelation_ = (float*)calloc_a(ac_fft_len, sizeof(float), MEM_ALIGN);
-		sah_complex* WorkData_ = (sah_complex *)malloc_a(FftLen/2 * sizeof(sah_complex),MEM_ALIGN);
+	//	unsigned long ac_fft_len_ = ac_fft_len;
+	//	double FLOP_counter_ = state.FLOP_counter;
+	//	sah_complex* ChirpedData_ = (sah_complex *)malloc_a(NumDataPoints * sizeof(sah_complex),MEM_ALIGN);
+	//	float *AutoCorrelation_ = (float*)calloc_a(ac_fft_len, sizeof(float), MEM_ALIGN);
+	//	sah_complex* WorkData_ = (sah_complex *)malloc_a(FftLen/2 * sizeof(sah_complex),MEM_ALIGN);
 
-		memcpy(ChirpedData_, ChirpedData, NumDataPoints*sizeof(sah_complex));
-		int fftlen_ = fftlen;
+	//	memcpy(ChirpedData_, ChirpedData, NumDataPoints*sizeof(sah_complex));
+	//	int fftlen_ = fftlen;
 
-		float* PowerSpectrum_ = (float*) calloc_a(NumDataPoints, sizeof(float), MEM_ALIGN);
+	//	float* PowerSpectrum_ = (float*) calloc_a(NumDataPoints, sizeof(float), MEM_ALIGN);
 
-		fpgaInterface.setInitialData(
-			ChirpedData,
-			NumDataPoints,
-			FftNum,
-			fftlen_
-			);
-		fpgaInterface.runAnalysis();
+	//	fpgaInterface.setInitialData(
+	//		ChirpedData,
+	//		NumDataPoints,
+	//		FftNum,
+	//		fftlen_
+	//		);
+	//	fpgaInterface.runAnalysis();
 /*
 		for (ifft = 0; ifft < NumFfts; ifft++) {
 			int CurrentSub_ = fftlen_ * ifft;
@@ -701,27 +714,27 @@ int seti_analyze (ANALYSIS_STATE& state) {
 //		fprintf(stderr, "\nprogress=%f, remaining=%f", progress, remaining);
         } // loop through chirped data array
 
-	fprintf(stderr, "\nAFTER:");
-	fprintf(stderr, "\n\t state.FLOP_counter = %f", state.FLOP_counter);
-	fprintf(stderr, "\n\t state.PoT_freq_bin=%d", state.PoT_freq_bin);
+//	fprintf(stderr, "\nAFTER:");
+//	fprintf(stderr, "\n\t state.FLOP_counter = %f", state.FLOP_counter);
+//	fprintf(stderr, "\n\t state.PoT_freq_bin=%d", state.PoT_freq_bin);
 
-	// Compare results here
-	for (int i=0; i<NumDataPoints; i++){
-		if (ChirpedData[i][0] != ChirpedData[i][0]){
-			fprintf(stderr, "\nChirpedData[i][0] != ChirpedData_[i][0], %f != %f", ChirpedData[i][0], ChirpedData_[i][0]);
-		}
-		if (ChirpedData[i][1] != ChirpedData[i][1]){
-			fprintf(stderr, "\nChirpedData[i][1] != ChirpedData_[i][1], %f != %f", ChirpedData[i][1], ChirpedData_[i][1]);
-		}
-	}
-	fpgaInterface.compareResults(PowerSpectrum);
-	for (int i=0; i<NumDataPoints; i++) {
-		if (PowerSpectrum[i] != PowerSpectrum_[i])
-			fprintf(stderr, "\nPowerSpectrum[i] != PowerSpectrum_[i], %f != %f", PowerSpectrum[i], PowerSpectrum_[i]);
-	}
-	if (state.FLOP_counter != FLOP_counter_) {
-		fprintf(stderr, "\nFLOP_counter_ != FLOP_Counter, %f != %f", FLOP_counter_, state.FLOP_counter);
-	}
+	//// Compare results here
+	//for (int i=0; i<NumDataPoints; i++){
+	//	if (ChirpedData[i][0] != ChirpedData[i][0]){
+	//		fprintf(stderr, "\nChirpedData[i][0] != ChirpedData_[i][0], %f != %f", ChirpedData[i][0], ChirpedData_[i][0]);
+	//	}
+	//	if (ChirpedData[i][1] != ChirpedData[i][1]){
+	//	fprintf(stderr, "\nChirpedData[i][1] != ChirpedData_[i][1], %f != %f", ChirpedData[i][1], ChirpedData_[i][1]);
+	//	}
+	//}
+	//fpgaInterface.compareResults(PowerSpectrum);
+	//for (int i=0; i<NumDataPoints; i++) {
+	//	if (PowerSpectrum[i] != PowerSpectrum_[i])
+	//		fprintf(stderr, "\nPowerSpectrum[i] != PowerSpectrum_[i], %f != %f", PowerSpectrum[i], PowerSpectrum_[i]);
+	//}
+	//if (state.FLOP_counter != FLOP_counter_) {
+	//	fprintf(stderr, "\nFLOP_counter_ != FLOP_Counter, %f != %f", FLOP_counter_, state.FLOP_counter);
+	//}
 
 #endif // END USE_FPGA
 
@@ -758,10 +771,20 @@ int seti_analyze (ANALYSIS_STATE& state) {
         retval = checkpoint();
         if (retval) SETIERROR(retval,"from checkpoint() in seti_analyse()");
 
+		benchmark.stopTimer();
+		exeTimes[icfft] = benchmark.getTimeMs();
+		fprintf(stderr,"\nEXE_TIMES\t%6d\t%15.11f\t%6d\t%6d\t%d\t%d\t%f",
+                icfft,
+                ChirpFftPairs[icfft].ChirpRate,
+                ChirpFftPairs[icfft].ChirpRateInd,
+                ChirpFftPairs[icfft].FftLen,
+                ChirpFftPairs[icfft].GaussFit,
+                ChirpFftPairs[icfft].PulseFind,
+				exeTimes[icfft]
+               );
     } // loop over chirp/fftlen pairs
 
 #ifdef USE_OLD_MAIN
-#else
     for (icfft = state.icfft; icfft < num_cfft; icfft++) {
         fftlen    = ChirpFftPairs[icfft].FftLen;
         chirprate = ChirpFftPairs[icfft].ChirpRate;
@@ -1078,6 +1101,9 @@ int seti_analyze (ANALYSIS_STATE& state) {
         FreeTrigArray();
     }
 
+	entireRunBenchmark.stopTimer();
+	fprintf(stderr, "\nEntire Execution time: %f", entireRunBenchmark.getTimeMs());
+	
     // jeffc
     //retval = outfile.flush();
     xml_indent(-2);

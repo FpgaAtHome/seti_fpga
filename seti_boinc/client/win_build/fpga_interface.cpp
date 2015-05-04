@@ -104,7 +104,7 @@ void FpgaInterface::runAnalysis()
 	for (int ifft = 0; ifft < NumFfts_; ifft++) {
 		// boinc_worker_timer();
 		CurrentSub = fftlen_ * ifft;
-		fprintf(stderr, "\nifft=%d, CurrentSub=%d", ifft, CurrentSub);
+//		fprintf(stderr, "\nifft=%d, CurrentSub=%d", ifft, CurrentSub);
 
 		fftwf_execute_dft(analysis_plans[FftNum], &ChirpedData[CurrentSub], WorkData);
 		fprintf(stderr, "\nGetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
@@ -115,7 +115,7 @@ void FpgaInterface::runAnalysis()
 		fftwf_execute_dft(analysis_plans[FftNum_], &ChirpedData_[CurrentSub], WorkData_);
 
 		// this can be pulled out of this for loop
-		fprintf(stderr, "\nGetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen_);
+//		fprintf(stderr, "\nGetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen_);
 		GetPowerSpectrum(WorkData_,
 				 &PowerSpectrum_[CurrentSub],
 				 fftlen_
