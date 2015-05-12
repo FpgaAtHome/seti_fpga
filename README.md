@@ -6,9 +6,13 @@ Use Visual Studio 2005 to open and build the following 2 solutions:
 boinc-old/win_build/boinc.sln
 seti_boinc/client/win_build/seti_boinc.sln
 
-Note: I still have to change all references from seti_boinc.sln related projects to boinc-old from
-boinc.  I also have to update all configurations to mirror the changes I made to the Debug
-configuration of seti_boinc to make it work.
++------------------------------------------------------------------------------------------------+
+|  Things to Do:                                                                                 |
++------------------------------------------------------------------------------------------------+
+
+[1] Change all references from seti_boinc.sln related projects to boinc-old from boinc.
+[2] Update all configurations to mirror the Debug configuration, so they all work.
+[3] Convert LabViewTester.cpp project into a Visual Studio 2005 project. (Or add support for both)
 
 +------------------------------------------------------------------------------------------------+
 |  How to Run the Code:                                                                          |
@@ -42,6 +46,21 @@ configuration of seti_boinc to make it work.
 	(from the <git_root>/client/slots/0 directory)
 	(1) Delete: state.sah
 	(2) Delete: boinc_lockfile
+
++------------------------------------------------------------------------------------------------+
+|  Running the Test Code:                                                                        |
++------------------------------------------------------------------------------------------------+
+
+There are 3 ways of testing the input and output Fft data.  One is with pure Labview, the other is
+with C++, and the last is with Pyhon 2.7.
+
+	Open the Visual Studio 2010 Solution from the following location:
+		seti_labview/LabViewTester.cpp/set_fpga.sln
+	Build the Solution (Preferably the Debug Configuration)
+	Open a windows command prompt and go to the following directory:
+		seti_labview/LabViewTester.cpp\dataTester\Debug
+	Execute the following command:
+		.\dataTester.exe
 	
 +------------------------------------------------------------------------------------------------+
 | Quick Analysis of the code:                                                                    |
