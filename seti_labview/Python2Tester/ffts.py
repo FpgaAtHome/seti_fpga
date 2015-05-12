@@ -1,14 +1,18 @@
+#!/usr/bin/python
+
 import numpy
 import os
 import random
 import cmath
 import unittest
 
+testDataDir = "TestData"
 
 def main():
+	global testDataDir
 	aux = raw_input("Do you wish to generate random input files? Y/N\n")
 	if aux == "Y" or aux == "y":
-		os.chdir("Testing")
+		os.chdir(testDataDir)
 		for filee in os.listdir("."):
 			os.remove(filee)
 		os.chdir("..") # delete all existing files from the testing directory
@@ -18,15 +22,11 @@ def main():
 	if aux == "Y" or aux == "y":
 		generateAllOutputFiles()
 		unittest.main(verbosity = 2)
-	
-	
-
 
 class MyTest(unittest.TestCase):
-
-
 	def test_compare_ffts_calculations(self):
-		os.chdir("Testing")
+		global testDataDir
+		os.chdir(testDataDir)
 		for filee in os.listdir("."):
 			index = filee.find("input")
 			if index != -1:
@@ -60,8 +60,6 @@ class MyTest(unittest.TestCase):
 				fileCheckResult.close()
 				print("\tUnit testing for file = {} - ALL OK".format(filee))
 		os.chdir("..")
-		
-
 
 """for a input file returns the list with the output
 if split != 0, the FFT will be calculated via a split method"""
@@ -80,12 +78,11 @@ def myFFTCalculation(inFileName, split = 0):
 
 	fileIn.close()
 	return res
-	
-
 
 """generate all the output files required for the problem"""
 def generateAllOutputFiles():
-	os.chdir("Testing")
+	global testDataDir
+	os.chdir(testDataDir)
 
 	fileList = os.listdir(".") # get all the files in the current directeory
 	for filee in fileList:
@@ -98,25 +95,29 @@ def generateOutputFile(inputFileName):
 	fileIn = open(inputFileName, "r")
 	fileOutName = "output" + inputFileName[inputFileName.find("_"):]
 	fileOut = open(fileOutName, "w")
-	
-	line = fileIn.readline()
-	listInput = line.split(", ")
+
+	#listInput = []
 	listInputFloats = []
-	for i, elem in enumerate(listInput): # convert the list to floats
-		listInputFloats.append(float(elem))
+	for line in fileIn.readlines():	
+		listInputFloats.append(line)
+	#line = fileIn.readline()
+	#listInput = line.split(", ")
+	#for i, elem in enumerate(listInput): # convert the list to floats
+	#	listInputFloats.append(float(elem))
 	fftResult = numpy.fft.fft(listInputFloats)
 	for i, elem in enumerate(fftResult):
 		if i == (len(fftResult) - 1): # do not print a ',' after the last randomly generated nubmer
 			fileOut.write("{}".format(elem))
 		else:
-			fileOut.write("{}, ".format(elem))
+			fileOut.write("{}\n".format(elem))
 
 	fileIn.close()
 	fileOut.close()
 
 """generate all the input files required for the problem"""
 def generateAllInputFiles():
-	os.chdir("Testing")
+	global testDataDir
+	os.chdir(testDataDir)
 	generateInputFile(8)
 	generateInputFile(16)
 	generateInputFile(32)
@@ -139,31 +140,30 @@ def generateInputFile(length, split = 0):
 	file1 = open(fileName1, "w")
 	file2 = open(fileName2, "w")
 
-	array1 = numpy.random.random(length)
-	array2 = numpy.random.random(length)
-	for i, elem in enumerate(array1):
-		if i == (len(array1) - 1): # do not print a ',' after the last randomly generated nubmer
-			file1.write("{}".format(elem))
+	array1_r = numpy.random.random(length)
+	array1_i = numpy.random.random(length)
+	array2_r = numpy.random.random(length)
+	array2_i = numpy.random.random(length)
+	for i, elem_r in enumerate(array1_r):
+		elem_i = array1_i[i]
+		if i == (len(array1_r) - 1): # do not print a ',' after the last randomly generated nubmer
+			file1.write("{} + {}j".format(elem_r, elem_i))
 		else:
-			file1.write("{}, ".format(elem))
-	for i, elem in enumerate(array2):
-		if i == (len(array2) - 1): # do not print a ',' after the last randomly generated nubmer
-			file2.write("{}".format(elem))
+			file1.write("{} + {}\jn".format(elem_r, elem_i))
+	for i, elem_r in enumerate(array2_r):
+		elem_i = array2_i[i]
+		if i == (len(array2_r) - 1): # do not print a ',' after the last randomly generated nubmer
+			file2.write("{} + {}j".format(elem_r, elem_i))
 		else:
-			file2.write("{}, ".format(elem))
+			file2.write("{} + {}j\n".format(elem_r, elem_i))
 
 	file1.close()
 	file2.close()
-	
-
-
-
 
 """
 Discrete Fourier transform(matrix-vector multiplication)
 """
 def DFT(dataIn):
-
     x = numpy.asarray(dataIn, dtype=float)
     N = x.shape[0]
     n = numpy.arange(N)
