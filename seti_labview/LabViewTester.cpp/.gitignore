@@ -1,6 +1,8 @@
-*.opensdf 
-*.sdf 
+seti_fpga.opensdf
+*sdf
 *.suo 
-ipch 
+ipch/
 Debug
-Release 
+Release
+*.filters
+*.user
