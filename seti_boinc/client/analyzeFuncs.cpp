@@ -124,7 +124,7 @@ const char *SAH_PACKAGE_STRING=CUSTOM_STRING;
 #include "worker.h"
 #include "filesys.h"
 #include "progress.h"
-#include "fpga_interface.h"
+#include "FpgaInterface.h"
 #include "Benchmark.h"
 
 BaseLineSmooth_func BaseLineSmooth=v_BaseLineSmooth;
@@ -298,7 +298,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
 #endif
 
 #ifdef USE_FPGA
-	fpgaInterface.initializeFft(bitfield, ac_fft_len);
+//	fpgaInterface.initializeFft(bitfield, ac_fft_len);
 #endif
 
 	// Set up DFFT plans
@@ -502,7 +502,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
     boinc_wu_cpu_time(cputime0);
     reset_units();
-    
+
     double chirp_units=0;
     // Loop through chirp/fft pairs - this is the top level analysis loop.
     double last_ptime=0;
@@ -515,7 +515,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
 	fprintf(stderr, "\nnum_cfft = %d", num_cfft);
 	fprintf(stderr, "\n+------+");
 #endif
-	std::map<int, double> exeTimes;
 
 	fprintf(stderr,"\nEXE_TIMES\t[icfft]\tChirpRate\tChirpRateInd\tFftLen\tGaussFit\tPulseFind\tExe Time (ms)");
 	Benchmark entireRunBenchmark;
@@ -527,15 +526,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
 		chirprateind = ChirpFftPairs[icfft].ChirpRateInd;
 		remaining    = 1.0 - (double)icfft/num_cfft;
 
-//		fprintf(stderr, "\nicfft=%d", icfft);
-//		fprintf(stderr, "\nfftlen=%d", fftlen);
-//		fprintf(stderr, "\nchirprate=%f", chirprate);
-//		fprintf(stderr, "\nchirprateind=%d", chirprateind);
-//		fprintf(stderr, "\nNumDataPoints=%d", NumDataPoints);
-
-//		fprintf(stderr, "\nLoop over Chirp/Fft Pairs");
-// We take DataIn, do a "chirp" operation on it and store
-// the results in ChirpedData
         if (chirprateind != last_chirp_ind) {
 			// CUDA does this in the GPU
             retval = ChirpData(
@@ -583,7 +573,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
         // Number of FFTs for this length
         NumFfts   = NumDataPoints / fftlen;
-//		fprintf(stderr, "\nNumFfts=%d", NumFfts);
 
 #ifdef USE_FPGA
 
@@ -772,7 +761,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
         if (retval) SETIERROR(retval,"from checkpoint() in seti_analyse()");
 
 		benchmark.stopTimer();
-		exeTimes[icfft] = benchmark.getTimeMs();
+		double exeTime = benchmark.getTimeMs();
 		fprintf(stderr,"\nEXE_TIMES\t%6d\t%15.11f\t%6d\t%6d\t%d\t%d\t%f",
                 icfft,
                 ChirpFftPairs[icfft].ChirpRate,
@@ -780,7 +769,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
                 ChirpFftPairs[icfft].FftLen,
                 ChirpFftPairs[icfft].GaussFit,
                 ChirpFftPairs[icfft].PulseFind,
-				exeTimes[icfft]
+				exeTime
                );
     } // loop over chirp/fftlen pairs
 
@@ -1102,7 +1091,7 @@ int seti_analyze (ANALYSIS_STATE& state) {
     }
 
 	entireRunBenchmark.stopTimer();
-	fprintf(stderr, "\nEntire Execution time: %f", entireRunBenchmark.getTimeMs());
+	fprintf(stderr, "\nEntire Execution time: %f\n", entireRunBenchmark.getTimeMs());
 	
     // jeffc
     //retval = outfile.flush();

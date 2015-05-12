@@ -543,7 +543,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\fpga_interface.cpp"
+				RelativePath=".\FpgaInterface.cpp"
 				>
 			</File>
 			<File
@@ -668,7 +668,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\fpga_interface.h"
+				RelativePath=".\FpgaInterface.h"
 				>
 			</File>
 			<File

@@ -1,5 +1,5 @@
 
-#include "fpga_interface.h"
+#include "FpgaInterface.h"
 
 #include "malloc_a.h"
 #define FFTW_MEASURE_OR_ESTIMATE ((app_init_data.host_info.m_nbytes >= MIN_TRANSPOSE_MEMORY)?FFTW_MEASURE:FFTW_ESTIMATE)
