@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F2C76A4A-69E1-4305-9E42-B8638088B083}</ProjectGuid>
+    <RootNamespace>dataTester</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\intermediate</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\intermediate</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(ProjectDir)\src\gtest;$(ProjectDir)\src\gmock;C:\Program Files %28x86%29\National Instruments\LabVIEW 2014\cintools;$(SolutionDir)..\LabVIEW\builds\seti_labview\Seti_LabView;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Seti_LabView.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>nafxcwd.lib;libcd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\builds\seti_labview\Seti_LabView;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy libfftw3*.dll $(OutDir)
+copy "$(SolutionDir)..\builds\seti_labview\Seti_LabView\*.*" $(OutDir)
+copy "$(SolutionDir)..\builds\seti_labview\Seti_LabView\data\*.*" $(OutDir)\data</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>copy $(SolutionDir)..\builds\seti_labview\Seti_LabView\*.h $(ProjectDir)\include</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(ProjectDir)\src\gtest;$(ProjectDir)\src\gmock;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Seti_LabView.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\builds\seti_labview\Seti_LabView</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy libfftw3*.dll $(OutDir)
+copy "$(SolutionDir)..\builds\seti_labview\Seti_LabView\*.*" $(OutDir)
+copy "$(SolutionDir)..\builds\seti_labview\Seti_LabView\data\*.*" $(OutDir)\data</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>copy $(SolutionDir)..\builds\seti_labview\Seti_LabView\*.h $(ProjectDir)\include</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\builds\seti_labview\Seti_LabView\Seti_LabView.h" />
+    <ClInclude Include="include\DataAnalysis.h" />
+    <ClInclude Include="include\dumpDataToScreen.h" />
+    <ClInclude Include="include\fftw3.h" />
+    <ClInclude Include="include\FpgaInterface.h" />
+    <ClInclude Include="include\ResultsLoader.h" />
+    <ClInclude Include="include\type_defs.h" />
+    <ClInclude Include="src\DataLoader.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-actions.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-cardinalities.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-generated-actions.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-generated-function-mockers.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-generated-matchers.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-generated-nice-strict.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-matchers.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-more-actions.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-more-matchers.h" />
+    <ClInclude Include="src\gmock\gmock\gmock-spec-builders.h" />
+    <ClInclude Include="src\gmock\gmock\gmock.h" />
+    <ClInclude Include="src\gmock\gmock\internal\gmock-generated-internal-utils.h" />
+    <ClInclude Include="src\gmock\gmock\internal\gmock-internal-utils.h" />
+    <ClInclude Include="src\gmock\gmock\internal\gmock-port.h" />
+    <ClInclude Include="src\gtest\gtest\gtest-death-test.h" />
+    <ClInclude Include="src\gtest\gtest\gtest-message.h" />
+    <ClInclude Include="src\gtest\gtest\gtest-param-test.h" />
+    <ClInclude Include="src\gtest\gtest\gtest-printers.h" />
+    <ClInclude Include="src\gtest\gtest\gtest-spi.h" />
+    <ClInclude Include="src\gtest\gtest\gtest-test-part.h" />
+    <ClInclude Include="src\gtest\gtest\gtest.h" />
+    <ClInclude Include="src\gtest\gtest\gtest_pred_impl.h" />
+    <ClInclude Include="src\gtest\gtest\gtest_prod.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-death-test-internal.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-filepath.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-internal.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-linked_ptr.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-param-util-generated.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-param-util.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-port.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-string.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-tuple.h" />
+    <ClInclude Include="src\gtest\gtest\internal\gtest-type-util.h" />
+    <ClInclude Include="src\gtest\src\gtest-internal-inl.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DataAnalysis.cpp" />
+    <ClCompile Include="src\DataLoader.cpp" />
+    <ClCompile Include="src\dumpDataToScreen.cpp" />
+    <ClCompile Include="src\FpgaInterface.cpp" />
+    <ClCompile Include="src\gmock\src\gmock-all.cc" />
+    <ClCompile Include="src\gmock\src\gmock-cardinalities.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gmock\src\gmock-internal-utils.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gmock\src\gmock-matchers.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gmock\src\gmock-spec-builders.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gmock\src\gmock.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gmock\src\gmock_main.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gtest\src\gtest-all.cc" />
+    <ClCompile Include="src\gtest\src\gtest-death-test.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gtest\src\gtest-filepath.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gtest\src\gtest-port.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gtest\src\gtest-printers.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gtest\src\gtest-test-part.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gtest\src\gtest-typed-test.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gtest\src\gtest.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\gtest\src\gtest_main.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\TestMain.cpp" />
+    <ClCompile Include="src\ResultsLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\data_16.txt" />
+    <None Include="data\data_16_1-results.txt" />
+    <None Include="data\data_16_1.txt" />
+    <None Include="data\data_32.txt" />
+    <None Include="data\data_8.txt" />
+    <None Include="src\gmock\gmock\gmock-generated-actions.h.pump" />
+    <None Include="src\gmock\gmock\gmock-generated-function-mockers.h.pump" />
+    <None Include="src\gmock\gmock\gmock-generated-matchers.h.pump" />
+    <None Include="src\gmock\gmock\gmock-generated-nice-strict.h.pump" />
+    <None Include="src\gmock\gmock\internal\gmock-generated-internal-utils.h.pump" />
+    <None Include="src\gtest\gtest\gtest-param-test.h.pump" />
+    <None Include="src\gtest\gtest\internal\gtest-param-util-generated.h.pump" />
+    <None Include="src\gtest\gtest\internal\gtest-tuple.h.pump" />
+    <None Include="src\gtest\gtest\internal\gtest-type-util.h.pump" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
