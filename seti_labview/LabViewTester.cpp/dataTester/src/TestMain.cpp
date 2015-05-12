@@ -4,6 +4,7 @@
 
 #include <complex>
 #include <vector>
+#include <cmath>
 
 #pragma comment(lib, "libfftw3-3.lib")
 #pragma comment(lib, "libfftw3f-3.lib")
@@ -27,6 +28,11 @@ const char* data_path = "../../TestData/";
 
 MATCHER_P(FloatNearPointwise, tol, "Out of range") {
     return (std::get<0>(arg)>std::get<1>(arg)-tol && std::get<0>(arg)<std::get<1>(arg)+tol) ;
+}
+
+bool floatsCloseEnough(float lhs, float rhs)
+{
+	return abs(rhs-lhs) < .001;
 }
 
 // Helpers
@@ -395,40 +401,30 @@ TEST(LibFftTest, Simple_ComplexToComplex_Fft_16_Simple_2) {
 TEST(LibFftTest, UseLabViewFpga_ComplexToComplex_Fft_16_Simple_1)
 {
 	try {
+		// GIVEN
+		int fft_len = 16;
+		fftwf_complex* out_data = new fftwf_complex[fft_len];
 
-	// GIVEN
-	int fft_len = 16;
-	fftwf_complex* out_data = new fftwf_complex[fft_len];
-
-	// WHEN
-	FpgaInterface fpgaInterface;
+		// WHEN
+		FpgaInterface fpgaInterface;
 	
-	fftwf_complex* inData = new fftwf_complex[fft_len];
-	fftwf_complex* outData = new fftwf_complex[fft_len];
-	fftwf_complex* inDataTmp = ConvertVectorToArray(
-													LoadTestData("data_16_1.txt")
+		fftwf_complex* inData = new fftwf_complex[fft_len];
+		fftwf_complex* outData = new fftwf_complex[fft_len];
+		fftwf_complex* inDataTmp = ConvertVectorToArray(
+														LoadTestData("data_16_1.txt")
+														);
+		fpgaInterface.PerformFft(16, inDataTmp, outData);
+		fpgaInterface.CleanUpFpga();
+
+		// THEN
+		fftwf_complex* results = ConvertVectorToArray(
+													LoadTestData("data_16_1-results.txt")
 													);
-	fpgaInterface.PerformFft(16, inDataTmp, outData);
-	fpgaInterface.CleanUpFpga();
-
-	// THEN
-	fftwf_complex* results = ConvertVectorToArray(
-												LoadTestData("data_16_1-results.txt")
-												);
-	ASSERT_THAT(outData[0][0], FloatEq(136));
-	ASSERT_THAT(outData[0][1], FloatEq(13.970009f));
-	ASSERT_THAT(outData[1][0], FloatEq(-7.98601f));
-	ASSERT_THAT(outData[1][1], FloatEq(39.5443f));
-	ASSERT_THAT(outData[2][0], FloatEq(-8.89803f));
-	ASSERT_THAT(outData[2][1], FloatEq(18.2975f));
-	ASSERT_THAT(outData[3][0], FloatEq(-9.67333f));
-	ASSERT_THAT(outData[3][1], FloatEq(11.6935f));
-
-	ASSERT_THAT(outData[5][0], FloatEq(-8.67333f));
-	ASSERT_THAT(outData[5][1], FloatEq(5.62479f));
-
-	ASSERT_THAT(outData[8][0], FloatEq(-8));
-	ASSERT_THAT(outData[8][1], FloatEq(-0.57f));
+		for (int i=0; i<8; i++)
+		{
+			ASSERT_TRUE(floatsCloseEnough(outData[i][0], results[i][0]));
+			ASSERT_TRUE(floatsCloseEnough(outData[i][1], results[i][1]));
+		}
 	}catch(std::exception& ex) {
 		std::cout << "\nException: " << ex.what();
 	}
