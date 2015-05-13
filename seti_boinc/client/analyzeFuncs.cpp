@@ -224,9 +224,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
     int * BitRevTab[MAX_NUM_FFTS];
     float * CoeffTab[MAX_NUM_FFTS];
 #endif
-#ifdef USE_FPGA
-	FpgaInterface fpgaInterface;	
-#endif
 
     // Allocate data array and work area arrays.
     ChirpedData = state.data;
@@ -295,10 +292,6 @@ int seti_analyze (ANALYSIS_STATE& state) {
 
 #ifdef BOINC_APP_GRAPHICS
     if (sah_graphics) strcpy(sah_graphics->status, "Generating FFT Coefficients");
-#endif
-
-#ifdef USE_FPGA
-//	fpgaInterface.initializeFft(bitfield, ac_fft_len);
 #endif
 
 	// Set up DFFT plans
@@ -512,14 +505,17 @@ int seti_analyze (ANALYSIS_STATE& state) {
 // Main Analysis loop
 // ends around line 656
 #ifdef USE_FPGA
-	fprintf(stderr, "\nnum_cfft = %d", num_cfft);
-	fprintf(stderr, "\n+------+");
+  fprintf(stderr, "\nnum_cfft = %d", num_cfft);
+  fprintf(stderr," \nEXE_TIMES\t[icfft]\tChirpRate\tChirpRateInd\tFftLen\tGaussFit\tPulseFind\tExe Time (ms)");
+
+  FpgaInterface fpgaInterface;
+  Benchmark entireRunBenchmark;
 #endif
 
-	fprintf(stderr,"\nEXE_TIMES\t[icfft]\tChirpRate\tChirpRateInd\tFftLen\tGaussFit\tPulseFind\tExe Time (ms)");
-	Benchmark entireRunBenchmark;
-	for (icfft = state.icfft; icfft < num_cfft; icfft++) {
-		Benchmark benchmark;
+  for (icfft = state.icfft; icfft < num_cfft; icfft++) {
+    #ifdef USE_FPGA
+      Benchmark benchmark;
+    #endif
 
 		fftlen       = ChirpFftPairs[icfft].FftLen;
 		chirprate    = ChirpFftPairs[icfft].ChirpRate;
@@ -527,7 +523,9 @@ int seti_analyze (ANALYSIS_STATE& state) {
 		remaining    = 1.0 - (double)icfft/num_cfft;
 
         if (chirprateind != last_chirp_ind) {
-			// CUDA does this in the GPU
+#ifdef BOINC_APP_GRAPHICS
+            if (sah_graphics) strcpy(sah_graphics->status, "Chirping data");
+#endif
             retval = ChirpData(
                          DataIn,
                          ChirpedData,
@@ -564,6 +562,13 @@ int seti_analyze (ANALYSIS_STATE& state) {
             }
         }
 
+#ifdef BOINC_APP_GRAPHICS
+        if (sah_graphics) {
+            sah_graphics->fft_info.chirp_rate = chirprate;
+            sah_graphics->fft_info.fft_len = fftlen;
+            strcpy(sah_graphics->status, "Computing Fast Fourier Transform");
+        }
+#endif
         // If PoT freq bin is non-negative, we are into PoT analysis
         // for this cfft pair and should not re-output an "ogh" line.
         if (state.PoT_freq_bin == -1) {
@@ -574,95 +579,74 @@ int seti_analyze (ANALYSIS_STATE& state) {
         // Number of FFTs for this length
         NumFfts   = NumDataPoints / fftlen;
 
-#ifdef USE_FPGA
-
-	//// Do Fpga Analysis here
-	///*fpgaInterface.runAnalysis(
-	//	NumFfts, NumDataPoints,
-	//	fftlen, ifft, FftNum,
-	//	ac_fft_len,
-	//	state.PoT_freq_bin,
-	//	PoTInfo.SpikeMin,
-	//	state.FLOP_counter
-	//	);*/
-	//	fprintf(stderr, "\nFor icfft = %d", icfft);
-	//	fprintf(stderr, "\nBEFORE:");
-	//	fprintf(stderr, "\n\t state.FLOP_counter = %f", state.FLOP_counter);
-	//	fprintf(stderr, "\n\t state.PoT_freq_bin=%d", state.PoT_freq_bin);
-
-	//	unsigned long ac_fft_len_ = ac_fft_len;
-	//	double FLOP_counter_ = state.FLOP_counter;
-	//	sah_complex* ChirpedData_ = (sah_complex *)malloc_a(NumDataPoints * sizeof(sah_complex),MEM_ALIGN);
-	//	float *AutoCorrelation_ = (float*)calloc_a(ac_fft_len, sizeof(float), MEM_ALIGN);
-	//	sah_complex* WorkData_ = (sah_complex *)malloc_a(FftLen/2 * sizeof(sah_complex),MEM_ALIGN);
-
-	//	memcpy(ChirpedData_, ChirpedData, NumDataPoints*sizeof(sah_complex));
-	//	int fftlen_ = fftlen;
-
-	//	float* PowerSpectrum_ = (float*) calloc_a(NumDataPoints, sizeof(float), MEM_ALIGN);
-
-	//	fpgaInterface.setInitialData(
-	//		ChirpedData,
-	//		NumDataPoints,
-	//		FftNum,
-	//		fftlen_
-	//		);
-	//	fpgaInterface.runAnalysis();
-/*
-		for (ifft = 0; ifft < NumFfts; ifft++) {
-			int CurrentSub_ = fftlen_ * ifft;
-			FLOP_counter_ += 5*(double)fftlen_ * log((double)fftlen_) / log(2.0);
-
-			fftwf_execute_dft(analysis_plans[FftNum], &ChirpedData_[CurrentSub_], WorkData_);
-
-			FLOP_counter_ += (double)fftlen_;
-
-			GetPowerSpectrum( WorkData_,
-                              &PowerSpectrum_[CurrentSub],
-                              fftlen_
-                            );
-
-			if (fftlen_ == (long)ac_fft_len_) {
-				FLOP_counter_ += ((double)fftlen_) * 5 * log((double)fftlen_) / log(2.0) + 2 * fftlen_;
-				fftwf_execute_r2r(autocorr_plan, &PowerSpectrum_[CurrentSub_], AutoCorrelation_);
-			}
-		}
-*/
+#ifdef BOINC_APP_GRAPHICS
+        if (sah_graphics) {
+            rarray.init_data(fftlen, NumFfts);
+        }
+#endif
         for (ifft = 0; ifft < NumFfts; ifft++) {
             // boinc_worker_timer();
             CurrentSub = fftlen * ifft;
-//			fprintf(stderr, "\nifft=%d, CurrentSub=%d", ifft, CurrentSub);
-			// Run a Dft based on the analysis plan
+#if !defined(USE_FFTWF) && !defined(USE_IPP)
+            // FFTW and IPP now use out of place transforms.
+            memcpy(
+                WorkData,
+                &ChirpedData[CurrentSub],
+                (int)(fftlen * sizeof(sah_complex))
+            );
+#endif
 
-			// The following variables get modified during this loop:
-			// state.FLOP_counter
-			//		state.FLOP_counter gets incremented only when fftlen == ac_fft_len
-			//		and when if (fftlen >= PoTInfo.SpikeMin) {if (state.PoT_freq_bin == -1) {
-			// WorkData
-			//		during the first call to fftwf_execute_dft
-			// PowerSpectrum
-			//		during the call to GetPowerSpectrum
-			// AutoCorrelation
-			//		during the call to fftwf_execute_r2r which gets called when fftlen == ac_fft_len
+            state.FLOP_counter+=5*(double)fftlen*log((double)fftlen)/log(2.0);
+#ifdef USE_IPP
+            ippsFFTInv_CToC_32fc((Ipp32fc*)ChirpedData[CurrentSub],
+                                 (Ipp32fc*)WorkData,
+                                 FftSpec[FftNum], FftBuf);
+#elif defined(USE_FFTWF)
+#ifdef USE_MANUAL_CALLSTACK
+            call_stack.enter("fftwf_execute_dft()");
+#endif
 
-            state.FLOP_counter += 5*(double)fftlen * log((double)fftlen) / log(2.0);
-
-			// WorkData gets the results
-            fftwf_execute_dft(analysis_plans[FftNum], &ChirpedData[CurrentSub], WorkData);
+				#ifdef USE_FPGA
+						if (fftlen == 16)
+						{
+								fpgaInterface.PerformFft(fftlen, &ChirpedData[CurrentSub], WorkData);
+						}
+						else
+				#endif
+						{
+								fftwf_execute_dft(analysis_plans[FftNum], &ChirpedData[CurrentSub], WorkData);
+						}
+            
+#ifdef USE_MANUAL_CALLSTACK
+            call_stack.exit();
+#endif
+#else /* !USE_FFTWF */
+            // replace time with freq - ooura FFT
+            cdft(fftlen*2, 1, WorkData, BitRevTab[FftNum], CoeffTab[FftNum]);
+#endif /* USE_FFTWF */
 
             // replace freq with power
-            state.FLOP_counter += (double)fftlen;
-			//fprintf(stderr, "\nGetPowerSpectrum(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
+            state.FLOP_counter+=(double)fftlen;
             GetPowerSpectrum( WorkData,
                               &PowerSpectrum[CurrentSub],
                               fftlen
                             );
 
-			if (fftlen == (long)ac_fft_len) {
-				state.FLOP_counter += ((double)fftlen) * 5 * log((double)fftlen) / log(2.0) + 2 * fftlen;
-				fftwf_execute_r2r(autocorr_plan, &PowerSpectrum[CurrentSub], AutoCorrelation);
-			}
-
+	    if (fftlen==(long)ac_fft_len) {
+	      state.FLOP_counter+=((double)fftlen)*5*log((double)fftlen)/log(2.0)+2*fftlen;
+#if defined(USE_FFTWF)
+#ifdef USE_MANUAL_CALLSTACK
+              call_stack.enter("fftwf_execute_r2r()");
+#endif
+              fftwf_execute_r2r(autocorr_plan,&PowerSpectrum[CurrentSub],AutoCorrelation);
+#ifdef USE_MANUAL_CALLSTACK
+              call_stack.exit();
+#endif
+#else
+#error Analysis needs to be modified for your FFT choice.
+#endif
+            }
+	        
             // any ETIs ?!
             // If PoT freq bin is non-negative, we are into PoT analysis
             // for this cfft pair and need not redo spike and autocorr finding.
@@ -670,62 +654,42 @@ int seti_analyze (ANALYSIS_STATE& state) {
                 //JWS: Don't look for Spikes at too short FFT lengths. 
                 if (fftlen >= PoTInfo.SpikeMin) {
                   state.FLOP_counter+=(double)fftlen;
-				  //fprintf(stderr, "\nFindSpikes(&PowerSpectrum[CurrentSub=%d], fftlen=%d", CurrentSub, fftlen);
                   retval = FindSpikes(
                                &PowerSpectrum[CurrentSub],
                                fftlen,
                                ifft,
                                swi
                            );
-                  if (retval)
-					  SETIERROR(retval,"from FindSpikes");
+                  if (retval) SETIERROR(retval,"from FindSpikes");
                 }
 
                 if (fftlen==ac_fft_len) {
-					//fprintf(stderr, "\nFindAutoCorrelation(fftlen=%d)", fftlen);
-					retval = FindAutoCorrelation(
+                  retval = FindAutoCorrelation(
                                AutoCorrelation,
                                fftlen,
                                ifft,
                                swi
                            );
-                  if (retval)
-					  SETIERROR(retval,"from FindAutoCorrelation");
-                  progress += 2.0 * SpikeProgressUnits(fftlen)*ProgressUnitSize/NumFfts;
+                  if (retval) SETIERROR(retval,"from FindAutoCorrelation");
+                  progress += 2.0*SpikeProgressUnits(fftlen)*ProgressUnitSize/NumFfts;
                 } else {
                   progress += SpikeProgressUnits(fftlen)*ProgressUnitSize/NumFfts;
                 }
             }
 
-        progress = std::min(progress, 1.0);
-        remaining = 1.0 - (double)(icfft + 1) / num_cfft;
-        fraction_done(progress, remaining);
-//		fprintf(stderr, "\nprogress=%f, remaining=%f", progress, remaining);
+            //progress = ((float)icfft)/num_cfft + ((float)ifft)/(NumFfts*num_cfft);
+            progress = std::min(progress,1.0);
+#ifdef BOINC_APP_GRAPHICS
+            if (!nographics()) {
+                rarray.add_source_row(PowerSpectrum+fftlen*ifft);
+                sah_graphics->local_progress = (((float)ifft+1)/NumFfts);
+            }
+#endif
+            remaining=1.0-(double)(icfft+1)/num_cfft;
+            fraction_done(progress,remaining);
+            // jeffc
+            //fprintf(stderr, "S fft len %d  progress = %12.10f\n", fftlen, progress);
         } // loop through chirped data array
-
-//	fprintf(stderr, "\nAFTER:");
-//	fprintf(stderr, "\n\t state.FLOP_counter = %f", state.FLOP_counter);
-//	fprintf(stderr, "\n\t state.PoT_freq_bin=%d", state.PoT_freq_bin);
-
-	//// Compare results here
-	//for (int i=0; i<NumDataPoints; i++){
-	//	if (ChirpedData[i][0] != ChirpedData[i][0]){
-	//		fprintf(stderr, "\nChirpedData[i][0] != ChirpedData_[i][0], %f != %f", ChirpedData[i][0], ChirpedData_[i][0]);
-	//	}
-	//	if (ChirpedData[i][1] != ChirpedData[i][1]){
-	//	fprintf(stderr, "\nChirpedData[i][1] != ChirpedData_[i][1], %f != %f", ChirpedData[i][1], ChirpedData_[i][1]);
-	//	}
-	//}
-	//fpgaInterface.compareResults(PowerSpectrum);
-	//for (int i=0; i<NumDataPoints; i++) {
-	//	if (PowerSpectrum[i] != PowerSpectrum_[i])
-	//		fprintf(stderr, "\nPowerSpectrum[i] != PowerSpectrum_[i], %f != %f", PowerSpectrum[i], PowerSpectrum_[i]);
-	//}
-	//if (state.FLOP_counter != FLOP_counter_) {
-	//	fprintf(stderr, "\nFLOP_counter_ != FLOP_Counter, %f != %f", FLOP_counter_, state.FLOP_counter);
-	//}
-
-#endif // END USE_FPGA
 
         fraction_done(progress,remaining);
         // jeffc
@@ -772,6 +736,9 @@ int seti_analyze (ANALYSIS_STATE& state) {
 				exeTime
                );
     } // loop over chirp/fftlen pairs
+#ifdef USE_FPGA
+		fpgaInterface.CleanUpFpga();
+#endif
 
 #ifdef USE_OLD_MAIN
     for (icfft = state.icfft; icfft < num_cfft; icfft++) {
