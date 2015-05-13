@@ -1,4 +1,7 @@
 *.ncb
 *.suo
 *~
-*vcproj*.user
+*vcproj*.userwisdom.sah
+**boinc_lockfile
+wisdom.sah
+**.user
