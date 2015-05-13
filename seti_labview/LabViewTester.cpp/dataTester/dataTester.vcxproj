@@ -61,7 +61,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(ProjectDir)\src\gtest;$(ProjectDir)\src\gmock;C:\Program Files %28x86%29\National Instruments\LabVIEW 2014\cintools;$(SolutionDir)..\LabVIEW\builds\seti_labview\Seti_LabView;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(ProjectDir)\src\gtest;$(ProjectDir)\src\gmock;C:\Program Files %28x86%29\National Instruments\LabVIEW 2014\cintools;$(SolutionDir)..\LabVIEW\builds\seti_labview\Seti_LabView;$(SolutionDir)..\..\seti_boinc\client\win_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Seti_LabView.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -88,7 +89,7 @@ copy "$(SolutionDir)..\builds\seti_labview\Seti_LabView\data\*.*" $(OutDir)\data
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(ProjectDir)\src\gtest;$(ProjectDir)\src\gmock;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(ProjectDir)\src\gtest;$(ProjectDir)\src\gmock;C:\Program Files %28x86%29\National Instruments\LabVIEW 2014\cintools;$(SolutionDir)..\LabVIEW\builds\seti_labview\Seti_LabView;$(SolutionDir)..\client\win_build;$(SolutionDir)..\..\seti_boinc\client\win_build</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Seti_LabView.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -109,11 +110,11 @@ copy "$(SolutionDir)..\builds\seti_labview\Seti_LabView\data\*.*" $(OutDir)\data
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\seti_boinc\client\win_build\FpgaInterface.h" />
     <ClInclude Include="..\..\builds\seti_labview\Seti_LabView\Seti_LabView.h" />
     <ClInclude Include="include\DataAnalysis.h" />
     <ClInclude Include="include\dumpDataToScreen.h" />
     <ClInclude Include="include\fftw3.h" />
-    <ClInclude Include="include\FpgaInterface.h" />
     <ClInclude Include="include\ResultsLoader.h" />
     <ClInclude Include="include\type_defs.h" />
     <ClInclude Include="src\DataLoader.h" />
@@ -156,10 +157,10 @@ copy "$(SolutionDir)..\builds\seti_labview\Seti_LabView\data\*.*" $(OutDir)\data
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\seti_boinc\client\win_build\FpgaInterface.cpp" />
     <ClCompile Include="src\DataAnalysis.cpp" />
     <ClCompile Include="src\DataLoader.cpp" />
     <ClCompile Include="src\dumpDataToScreen.cpp" />
-    <ClCompile Include="src\FpgaInterface.cpp" />
     <ClCompile Include="src\gmock\src\gmock-all.cc" />
     <ClCompile Include="src\gmock\src\gmock-cardinalities.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

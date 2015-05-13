@@ -6,17 +6,13 @@ Use Visual Studio 2005 to open and build the following 2 solutions:
 boinc-old/win_build/boinc.sln
 seti_boinc/client/win_build/seti_boinc.sln
 
-+------------------------------------------------------------------------------------------------+
-|  Things to Do:                                                                                 |
-+------------------------------------------------------------------------------------------------+
+## Things to Do:
 
 [1] Change all references from seti_boinc.sln related projects to boinc-old from boinc.
 [2] Update all configurations to mirror the Debug configuration, so they all work.
 [3] Convert LabViewTester.cpp project into a Visual Studio 2005 project. (Or add support for both)
 
-+------------------------------------------------------------------------------------------------+
-|  How to Run the Code:                                                                          |
-+------------------------------------------------------------------------------------------------+
+## How to Run the Code
 
 	This Visual Studio 2005 Solution has 2 configurations for 2 platforms for a total of 4
 	possible ways to run the application:
@@ -47,9 +43,7 @@ seti_boinc/client/win_build/seti_boinc.sln
 	(1) Delete: state.sah
 	(2) Delete: boinc_lockfile
 
-+------------------------------------------------------------------------------------------------+
-|  Running the Test Code:                                                                        |
-+------------------------------------------------------------------------------------------------+
+## Running the Test Code:
 
 There are 3 ways of testing the input and output Fft data.  One is with pure Labview, the other is
 with C++, and the last is with Pyhon 2.7.
@@ -62,16 +56,39 @@ with C++, and the last is with Pyhon 2.7.
 	Execute the following command:
 		.\dataTester.exe
 	
-+------------------------------------------------------------------------------------------------+
-| Quick Analysis of the code:                                                                    |
-+------------------------------------------------------------------------------------------------+
+## Quick Analysis of the code:
 
 The main function of interest, where all the heavy lifting occurs is in the "analyzeFuncs.cpp" file
 in the "seti_analyze" function.  This function starts at around line 178.
 
-	worker.cpp:worker()
+	worker.cpp::worker()
 		read_wu_state()
 			Opens the work_unit.sah file
+
+	analyzeFuncs.cpp::seti_analyze()
+		Look for #ifdef USE_FPGA.  If this #define is not set, the regular code will run,
+		if this is set, the Fpga will be used only for FFT's of length 16.
+
+		Go to around line #507, and you will see an #ifdef for USE_FPGA.  This will print
+		some benchmarking information and initialize the connection to the Fpga.
+
+		Then at around line 515, the main loop begins, which loops from 0 to num_cffts.
+		num_cffts is usually around 100,000, and for each iteration, the loop does:
+			- ChirpData
+				input:
+					DataIn
+					chirprateind
+					chirprate
+					NumDataPoints
+					swi.subband_sample_rate
+				output:
+					ChirpedData
+			- Loops from 0 to # of Ffts to perform, the # of Ffts is NumDataPoints / fftlen
+				(typically 1,000,000 / 16)
+			- Performs a Fft on portions of the ChirpedData in increments of Fftlen
+			- Calls GetPowerSpectrum on those results
+			- Does a quick analysis
+			- This loop (the inner loop) can be done in one large step inside the Fpga
 
 	Note:
 		Between Debug and Release modes, a different set of functions are selected because
@@ -82,7 +99,7 @@ in the "seti_analyze" function.  This function starts at around line 178.
 		Looks like I found the bug - it was calling a function that is for a 64-bit platform
 		when running on a 32-bit build.  Of course there was going to be an error!
 	
-+------------------------------------------------------------------------------------------------+
+---
 This function operates on an input "Work Unit" which has the following information:
 	Roughly 1 million Complex Data Points where each component is of type single-precision floats
 The function then does the following operations (in order):
