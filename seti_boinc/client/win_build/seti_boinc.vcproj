@@ -126,7 +126,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(SolutionDir)libfftw3f-3-3_upx.dll  $(SolutionDir)..\projects\setiathome.berkeley.edu"
+				CommandLine="copy $(SolutionDir)libfftw3f-3-3_upx.dll  $(SolutionDir)..\projects\setiathome.berkeley.edu&#x0D;&#x0A;copy &quot;$(SolutionDir)..\..\..\seti_labview\builds\seti_labview\Seti_LabView\*.*&quot; $(SolutionDir)..\projects\setiathome.berkeley.edu&#x0D;&#x0A;copy &quot;$(SolutionDir)..\..\..\seti_labview\builds\seti_labview\Seti_LabView\data\*.*&quot; $(SolutionDir)..\projects\setiathome.berkeley.edu\data"
 			/>
 		</Configuration>
 		<Configuration
@@ -349,7 +349,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(SolutionDir)libfftw3f-3-3_upx.dll  $(SolutionDir)..\projects\setiathome.berkeley.edu&#x0D;&#x0A;copy &quot;$(SolutionDir)..\..\..\seti_labview\builds\seti_labview\Seti_LabView\*.*&quot; $(OutDir)&#x0D;&#x0A;copy &quot;$(SolutionDir)..\..\..\seti_labview\builds\seti_labview\Seti_LabView\data\*.*&quot; $(OutDir)\data&#x0D;&#x0A;"
+				CommandLine="copy $(SolutionDir)libfftw3f-3-3_upx.dll  $(SolutionDir)..\projects\setiathome.berkeley.edu&#x0D;&#x0A;copy &quot;$(SolutionDir)..\..\..\seti_labview\builds\seti_labview\Seti_LabView\*.*&quot; $(SolutionDir)..\projects\setiathome.berkeley.edu&#x0D;&#x0A;copy &quot;$(SolutionDir)..\..\..\seti_labview\builds\seti_labview\Seti_LabView\data\*.*&quot; $(SolutionDir)..\projects\setiathome.berkeley.edu\data&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

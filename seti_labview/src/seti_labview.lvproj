@@ -91,6 +91,7 @@
 		<Item Name="FpgaExercisor" Type="Folder">
 			<Item Name="Do-Fft-Fpga-Top-Level.vi" Type="VI" URL="../FpgaExercisor/Do-Fft-Fpga-Top-Level.vi"/>
 			<Item Name="LoadComplexArrayFromFile.vi" Type="VI" URL="../FpgaExercisor/LoadComplexArrayFromFile.vi"/>
+			<Item Name="Do-Fft-Fpga-Top-Level-Multiple-Calls.vi" Type="VI" URL="../FpgaExercisor/Do-Fft-Fpga-Top-Level-Multiple-Calls.vi"/>
 		</Item>
 		<Item Name="Helpers" Type="Folder">
 			<Item Name="Host-Convert-SGL-to-FXP.vi" Type="VI" URL="../Helpers/Host-Convert-SGL-to-FXP.vi"/>
@@ -1197,7 +1198,7 @@ set_property IOSTANDARD LVCMOS25 [get_ports {Si570Clkn}]
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{4E50D1AE-56D6-42B6-B4FF-E514C3343A9D}</Property>
-				<Property Name="Bld_version.build" Type="Int">10</Property>
+				<Property Name="Bld_version.build" Type="Int">12</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">Seti_LabView.dll</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Seti_LabView/Seti_LabView.dll</Property>
