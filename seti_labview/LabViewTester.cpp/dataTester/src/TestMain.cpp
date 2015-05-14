@@ -24,11 +24,14 @@ using ::testing::Pair;
 using ::testing::FloatEq;
 using ::testing::Pointwise;
 
+
 const char* data_path = "../../TestData/";
 
+#if (_MSC_VER >= 1600)
 MATCHER_P(FloatNearPointwise, tol, "Out of range") {
     return (std::get<0>(arg)>std::get<1>(arg)-tol && std::get<0>(arg)<std::get<1>(arg)+tol) ;
 }
+#endif
 
 bool floatsCloseEnough(float lhs, float rhs)
 {
@@ -43,7 +46,7 @@ std::vector<std::pair<float, float>> LoadTestData(std::string filename)
 
 	std::vector<std::pair<float, float>> loaded_data;
 
-	std::ifstream inDataFile(inDataFilePath);
+	std::ifstream inDataFile(inDataFilePath.c_str());
 	std::string line;
 	while (std::getline(inDataFile, line))
 	{
@@ -172,6 +175,8 @@ TEST(LibFftTest, Simple_ComplexToComplex_Fft_4_Diff_Data) {
 	delete[] out_data;
 }
 
+#if (_MSC_VER >= 1600)
+// The matcher in EXPECT_THAT only works in C++11 - VS2010 and aboves
 // http://rosettacode.org/wiki/Fast_Fourier_transform#C.2B.2B
 TEST(LibFftTest2, Simple_ComplexToComplex_Fft_8_Wikipedia_Page_Data) {
 	// GIVEN
@@ -196,6 +201,7 @@ TEST(LibFftTest2, Simple_ComplexToComplex_Fft_8_Wikipedia_Page_Data) {
 	EXPECT_THAT(out_data_c, Pointwise( FloatNearPointwise(1e-5), expected_array  ) );
 	fftwf_destroy_plan(analysis_plan);
 }
+#endif
 
 TEST(LibFftTest, Simple_ComplexToComplex_Fft_8_Simple) {
 	// GIVEN

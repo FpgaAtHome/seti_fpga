@@ -25,7 +25,7 @@ std::string DataLoader::getDataFilePath(std::string source_filename)
 void DataLoader::LoadRunParameters(void)
 {
 	std::string source_file = getDataFilePath("binRunParameters.bin");
-	std::fstream dataFileIn ( source_file, std::ios::in | std::ios::binary );
+	std::fstream dataFileIn ( source_file.c_str(), std::ios::in | std::ios::binary );
 	if(!dataFileIn.is_open()) {
 		std::cout << "\nUnable to open Data File";
 		exit (1);
@@ -53,7 +53,7 @@ void DataLoader::LoadRunParameters(void)
 */
 void DataLoader::LoadWorkUnitDataPoints ( ) {
 	std::string source_file = getDataFilePath("binWorkUnitDataPoints.bin");
-	std::fstream dataFileIn ( source_file, std::ios::in | std::ios::binary );
+	std::fstream dataFileIn ( source_file.c_str(), std::ios::in | std::ios::binary );
 	if ( ! dataFileIn.is_open() ) {
 		std::cout << "\nUnable to open Data File";
 		exit (1);
@@ -89,7 +89,7 @@ void DataLoader::LoadWorkUnitDataPoints ( ) {
 */
 void DataLoader::LoadChirpFftPairs(void) {
 	std::string source_file = getDataFilePath("binChirpfftPairs.bin");
-	std::fstream chirpFftFileIn (  ( source_file ), std::ios::in | std::ios::binary );
+	std::fstream chirpFftFileIn (  ( source_file.c_str() ), std::ios::in | std::ios::binary );
 	if ( ! chirpFftFileIn.is_open() ) {
 		std::cout << "\nunable to open file: " << source_file;
 		exit(1);
@@ -124,7 +124,7 @@ void DataLoader::LoadChirpFftPairs(void) {
 */
 void DataLoader::LoadPowerSpectrum(void) {
 	std::string source_file = getDataFilePath("binPowerSpectrum.bin");
-	std::fstream dataFileIn ( source_file, std::ios::in | std::ios::binary );
+	std::fstream dataFileIn ( source_file.c_str(), std::ios::in | std::ios::binary );
 	if ( ! dataFileIn.is_open() ) {
 		std::cout << "\nUnable to open Data File: " << source_file;
 		exit (1);
