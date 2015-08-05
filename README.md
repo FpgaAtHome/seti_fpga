@@ -1,5 +1,7 @@
 See the wiki on github for the latest information:
 
+https://github.com/FpgaAtHome/seti_fpga/wiki
+
 
 # seti_fpga
 Port of SETI@Home to an FPGA Platform
