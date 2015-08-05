@@ -98,29 +98,40 @@ in the "seti_analyze" function.  This function starts at around line 178.
 		
 		Looks like I found the bug - it was calling a function that is for a 64-bit platform
 		when running on a 32-bit build.  Of course there was going to be an error!
-	
----
-This function operates on an input "Work Unit" which has the following information:
-	Roughly 1 million Complex Data Points where each component is of type single-precision floats
-The function then does the following operations (in order):
-	Generate or load Chirp Fft Pairs - The number of "Chirp Fft" pairs is different depending
-	on the work unit, but it typically numbers in the 140 thousands.  Each Chirp Fft pair contains
-	an Fft length, and a Chirp Rate.
-	
-	Iterate from 0 to the total number of Chirp Fft Pairs generated in the function above.
-		Take the 1 million Complex Data points and "Chirp" the data. See the function named
-		"v_ChirpData" in analyzeFuncs.cpp.
-		
-		Use the Fft Length specified in the current Chirp Fft pair, and iterate over the
-		input datapoints one Fft Length at a time.
-		
-		NumFfts = NumDataPoints / fftlen
-		for ifft=0; i < NumFfts; i++
-			Calculate Fft
-			GetPowerSpectrum
-			FindSpikes
-			FindAutoCorrelation
+
+## The Main "Loop"
+
+A SETI@Home "Work Unit" contains roughly 1 million Complex Single-Precision Floating Point numbers.
+
+The processing of this Work Unit occurs in the "seti_analyze" function, which starts at line 178 of analyzeFuncs.cpp.
+   https://github.com/FpgaAtHome/seti_fpga/blob/master/seti_boinc/client/analyzeFuncs.cpp
+
+This function has a loop that starts at around line 515 which does the following:
+ * Generate or load Chirp Fft Pairs - The number of "Chirp Fft" pairs is different depending on the work unit, but it typically numbers in the 140 thousands.  Each Chirp Fft pair contains an Fft length, and a Chirp Rate.
+ * Iterate from 0 to the total number of Chirp Fft Pairs.
+  * Take the 1 million Complex Data points and "Chirp" the data. See the function named
+	"v_ChirpData" in analyzeFuncs.cpp.
+
+	Use the Fft Length specified in the current Chirp Fft pair, and iterate over the input datapoints one Fft Length at a time.
+
+	NumFfts = NumDataPoints / fftlen
+	for ifft=0; i < NumFfts; i++
+		Calculate Fft
+		GetPowerSpectrum
+		FindSpikes
+		FindAutoCorrelation
 		
 		GetPulsePoTLen
 		Transpose
 		analyze_pot
+
+## Roadmap
+
+Next steps:
+[ ] Modify the FPGA Code to:
+  [ ] Store the 1 million Complex Data Points into the FPGA RAM when the program loads
+  [ ] Read the data from FPGA RAM before calculating the FFT. (It currently passes in the 1 million Complex Data Points in to the FPGA for each call)
+[ ] Add support for multiple FFT lengths.  We should start with the longer FFT lengths, as an FPGA will probably do much better than a CPU for long data sets that do not fit in a small L1 or L2 cache
+[ ] Implement the "GetPowerSpectrum" function in the FPGA so that the C++ code can skip over the "GetPowerSpectrum" function
+[ ] Implement the "ChirpData" function inside the FPGA.
+
