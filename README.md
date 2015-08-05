@@ -1,3 +1,6 @@
+See the wiki on github for the latest information:
+
+
 # seti_fpga
 Port of SETI@Home to an FPGA Platform
 
@@ -125,13 +128,4 @@ This function has a loop that starts at around line 515 which does the following
 		Transpose
 		analyze_pot
 
-## Roadmap
-
-Next steps:
-[ ] Modify the FPGA Code to:
-  [ ] Store the 1 million Complex Data Points into the FPGA RAM when the program loads
-  [ ] Read the data from FPGA RAM before calculating the FFT. (It currently passes in the 1 million Complex Data Points in to the FPGA for each call)
-[ ] Add support for multiple FFT lengths.  We should start with the longer FFT lengths, as an FPGA will probably do much better than a CPU for long data sets that do not fit in a small L1 or L2 cache
-[ ] Implement the "GetPowerSpectrum" function in the FPGA so that the C++ code can skip over the "GetPowerSpectrum" function
-[ ] Implement the "ChirpData" function inside the FPGA.
 
