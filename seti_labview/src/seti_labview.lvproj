@@ -210,12 +210,16 @@
 					<Property Name="configString.name" Type="Str">40 MHz Onboard ClockResourceName=40 MHz Onboard Clock;TopSignalConnect=RioClk40;ClockSignalName=RioClk40;MinFreq=40000000.000000;MaxFreq=40000000.000000;VariableFreq=0;NomFreq=40000000.000000;PeakPeriodJitter=250.000000;MinDutyCycle=50.000000;MaxDutyCycle=50.000000;Accuracy=100.000000;RunTime=0;SpreadSpectrum=0;GenericDataHash=D41D8CD98F00B204E9800998ECF8427EFIFO IN"ControlLogic=0;NumberOfElements=1029;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=1;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"FIFO OUT"ControlLogic=1;NumberOfElements=2050;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"FPGA-to-Host"ControlLogic=0;NumberOfElements=2047;Type=2;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;FPGA-to-Host;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"Host-to-FPGA"ControlLogic=0;NumberOfElements=2053;Type=1;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;Host-to-FPGA;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"PXI-7953R/RioClk40/falsetrueFPGA_EXECUTION_MODEDEV_COMPUTER_SIM_IOFPGA_TARGET_CLASSPXI_7953RFPGA_TARGET_FAMILYVIRTEX5TARGET_TYPEFPGA/[rSeriesConfig.Begin][rSeriesConfig.End]</Property>
 					<Property Name="NI.LV.FPGA.InterfaceBitfile" Type="Str">C:\work\git\seti_fpga\seti_labview\src\FPGA Bitfiles\setilabview_7953_Echo-Test_yqJ3oOh4Ewo.lvbitx</Property>
 				</Item>
+				<Item Name="Sandbox.vi" Type="VI" URL="../Benchmarking/Sandbox.vi">
+					<Property Name="configString.guid" Type="Str">{032DABF5-89E2-4704-8692-55FBA05F737E}"ControlLogic=0;NumberOfElements=1029;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=1;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"{5DDE2F8A-2415-467C-8958-2E278E1C65E5}"ControlLogic=1;NumberOfElements=2050;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"{628C3B4D-DCB6-451D-92BB-AB1EEDB7DB3B}ResourceName=40 MHz Onboard Clock;TopSignalConnect=RioClk40;ClockSignalName=RioClk40;MinFreq=40000000.000000;MaxFreq=40000000.000000;VariableFreq=0;NomFreq=40000000.000000;PeakPeriodJitter=250.000000;MinDutyCycle=50.000000;MaxDutyCycle=50.000000;Accuracy=100.000000;RunTime=0;SpreadSpectrum=0;GenericDataHash=D41D8CD98F00B204E9800998ECF8427E{7E6CEB2A-E95E-4CB5-A8D6-F5A5E509034D}"ControlLogic=0;NumberOfElements=2047;Type=2;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;FPGA-to-Host;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"{ACDFFE77-AE19-40A1-B00E-8311659307BF}"ControlLogic=0;NumberOfElements=2053;Type=1;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;Host-to-FPGA;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"PXI-7953R/RioClk40/falsetrueFPGA_EXECUTION_MODEDEV_COMPUTER_SIM_IOFPGA_TARGET_CLASSPXI_7953RFPGA_TARGET_FAMILYVIRTEX5TARGET_TYPEFPGA/[rSeriesConfig.Begin][rSeriesConfig.End]</Property>
+					<Property Name="configString.name" Type="Str">40 MHz Onboard ClockResourceName=40 MHz Onboard Clock;TopSignalConnect=RioClk40;ClockSignalName=RioClk40;MinFreq=40000000.000000;MaxFreq=40000000.000000;VariableFreq=0;NomFreq=40000000.000000;PeakPeriodJitter=250.000000;MinDutyCycle=50.000000;MaxDutyCycle=50.000000;Accuracy=100.000000;RunTime=0;SpreadSpectrum=0;GenericDataHash=D41D8CD98F00B204E9800998ECF8427EFIFO IN"ControlLogic=0;NumberOfElements=1029;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=1;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"FIFO OUT"ControlLogic=1;NumberOfElements=2050;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"FPGA-to-Host"ControlLogic=0;NumberOfElements=2047;Type=2;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;FPGA-to-Host;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"Host-to-FPGA"ControlLogic=0;NumberOfElements=2053;Type=1;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;Host-to-FPGA;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"PXI-7953R/RioClk40/falsetrueFPGA_EXECUTION_MODEDEV_COMPUTER_SIM_IOFPGA_TARGET_CLASSPXI_7953RFPGA_TARGET_FAMILYVIRTEX5TARGET_TYPEFPGA/[rSeriesConfig.Begin][rSeriesConfig.End]</Property>
+				</Item>
 			</Item>
 			<Item Name="Fft.vi" Type="VI" URL="../Fpga-Version/PXI-7953R/Fft.vi">
-				<Property Name="BuildSpec" Type="Str">{DA25223D-E38E-4DAA-8E22-56F67F7A8064}</Property>
+				<Property Name="BuildSpec" Type="Str">{84779EA8-AC86-441D-9246-7BD87284565B}</Property>
 				<Property Name="configString.guid" Type="Str">{032DABF5-89E2-4704-8692-55FBA05F737E}"ControlLogic=0;NumberOfElements=1029;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=1;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"{5DDE2F8A-2415-467C-8958-2E278E1C65E5}"ControlLogic=1;NumberOfElements=2050;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"{628C3B4D-DCB6-451D-92BB-AB1EEDB7DB3B}ResourceName=40 MHz Onboard Clock;TopSignalConnect=RioClk40;ClockSignalName=RioClk40;MinFreq=40000000.000000;MaxFreq=40000000.000000;VariableFreq=0;NomFreq=40000000.000000;PeakPeriodJitter=250.000000;MinDutyCycle=50.000000;MaxDutyCycle=50.000000;Accuracy=100.000000;RunTime=0;SpreadSpectrum=0;GenericDataHash=D41D8CD98F00B204E9800998ECF8427E{7E6CEB2A-E95E-4CB5-A8D6-F5A5E509034D}"ControlLogic=0;NumberOfElements=2047;Type=2;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;FPGA-to-Host;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"{ACDFFE77-AE19-40A1-B00E-8311659307BF}"ControlLogic=0;NumberOfElements=2053;Type=1;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;Host-to-FPGA;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"PXI-7953R/RioClk40/falsetrueFPGA_EXECUTION_MODEDEV_COMPUTER_SIM_IOFPGA_TARGET_CLASSPXI_7953RFPGA_TARGET_FAMILYVIRTEX5TARGET_TYPEFPGA/[rSeriesConfig.Begin][rSeriesConfig.End]</Property>
 				<Property Name="configString.name" Type="Str">40 MHz Onboard ClockResourceName=40 MHz Onboard Clock;TopSignalConnect=RioClk40;ClockSignalName=RioClk40;MinFreq=40000000.000000;MaxFreq=40000000.000000;VariableFreq=0;NomFreq=40000000.000000;PeakPeriodJitter=250.000000;MinDutyCycle=50.000000;MaxDutyCycle=50.000000;Accuracy=100.000000;RunTime=0;SpreadSpectrum=0;GenericDataHash=D41D8CD98F00B204E9800998ECF8427EFIFO IN"ControlLogic=0;NumberOfElements=1029;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=1;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"FIFO OUT"ControlLogic=1;NumberOfElements=2050;Type=0;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"FPGA-to-Host"ControlLogic=0;NumberOfElements=2047;Type=2;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;FPGA-to-Host;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"Host-to-FPGA"ControlLogic=0;NumberOfElements=2053;Type=1;ReadArbs=Arbitrate if Multiple Requestors Only;ElementsPerRead=1;WriteArbs=Arbitrate if Multiple Requestors Only;ElementsPerWrite=1;Implementation=2;Host-to-FPGA;DataType=100080000000000100094008000355363400010000000000000000000000000000;DisableOnOverflowUnderflow=FALSE"PXI-7953R/RioClk40/falsetrueFPGA_EXECUTION_MODEDEV_COMPUTER_SIM_IOFPGA_TARGET_CLASSPXI_7953RFPGA_TARGET_FAMILYVIRTEX5TARGET_TYPEFPGA/[rSeriesConfig.Begin][rSeriesConfig.End]</Property>
-				<Property Name="NI.LV.FPGA.InterfaceBitfile" Type="Str">C:\work\git\seti_fpga\seti_labview\src\FPGA Bitfiles\setilabview_7953_Fft-16_NnCMkibgJa8.lvbitx</Property>
+				<Property Name="NI.LV.FPGA.InterfaceBitfile" Type="Str">C:\work\git\seti_fpga\seti_labview\src\FPGA Bitfiles\setilabview_7953_Fft_W9C4vfe3NpM.lvbitx</Property>
 			</Item>
 			<Item Name="FFT Co-processor (FPGA).vi" Type="VI" URL="../Fpga-Version/PXI-7953R/FFT Co-processor (FPGA).vi">
 				<Property Name="BuildSpec" Type="Str">{3FCC3CE0-7B28-473F-BC34-9D2E9870F87D}</Property>
@@ -319,11 +323,11 @@
 					<Property Name="TargetName" Type="Str">7953</Property>
 					<Property Name="TopLevelVI" Type="Ref">/My Computer/7953/FFT Co-processor (FPGA).vi</Property>
 				</Item>
-				<Item Name="Echo-Test" Type="{F4C5E96F-7410-48A5-BB87-3559BC9B167F}">
+				<Item Name="Fft" Type="{F4C5E96F-7410-48A5-BB87-3559BC9B167F}">
 					<Property Name="AllowEnableRemoval" Type="Bool">false</Property>
 					<Property Name="BuildSpecDecription" Type="Str"></Property>
-					<Property Name="BuildSpecName" Type="Str">Echo-Test</Property>
-					<Property Name="Comp.BitfileName" Type="Str">setilabview_7953_Echo-Test_JVniJJ4LGLM.lvbitx</Property>
+					<Property Name="BuildSpecName" Type="Str">Fft</Property>
+					<Property Name="Comp.BitfileName" Type="Str">setilabview_7953_Fft_W9C4vfe3NpM.lvbitx</Property>
 					<Property Name="Comp.CustomXilinxParameters" Type="Str"></Property>
 					<Property Name="Comp.MaxFanout" Type="Int">-1</Property>
 					<Property Name="Comp.RandomSeed" Type="Bool">false</Property>
@@ -347,46 +351,6 @@
 					<Property Name="Comp.Xilinx.UseRecommended" Type="Bool">true</Property>
 					<Property Name="DefaultBuildSpec" Type="Bool">true</Property>
 					<Property Name="DestinationDirectory" Type="Path">FPGA Bitfiles</Property>
-					<Property Name="NI.LV.FPGA.LastCompiledBitfilePath" Type="Path">/C/work/git/seti_fpga/seti_labview/src/FPGA Bitfiles/setilabview_7953_Echo-Test_yqJ3oOh4Ewo.lvbitx</Property>
-					<Property Name="NI.LV.FPGA.LastCompiledBitfilePathRelativeToProject" Type="Path">FPGA Bitfiles/setilabview_7953_Echo-Test_yqJ3oOh4Ewo.lvbitx</Property>
-					<Property Name="ProjectPath" Type="Path">/C/work/git/seti_fpga/seti_labview/seti_labview.lvproj</Property>
-					<Property Name="RelativePath" Type="Bool">true</Property>
-					<Property Name="RunWhenLoaded" Type="Bool">false</Property>
-					<Property Name="SupportDownload" Type="Bool">true</Property>
-					<Property Name="SupportResourceEstimation" Type="Bool">true</Property>
-					<Property Name="TargetName" Type="Str">7953</Property>
-					<Property Name="TopLevelVI" Type="Ref">/My Computer/7953/Benchmarking/Echo-Test.vi</Property>
-				</Item>
-				<Item Name="Fft-16" Type="{F4C5E96F-7410-48A5-BB87-3559BC9B167F}">
-					<Property Name="AllowEnableRemoval" Type="Bool">false</Property>
-					<Property Name="BuildSpecDecription" Type="Str"></Property>
-					<Property Name="BuildSpecName" Type="Str">Fft-16</Property>
-					<Property Name="Comp.BitfileName" Type="Str">setilabview_7953_Fft-16_NnCMkibgJa8.lvbitx</Property>
-					<Property Name="Comp.CustomXilinxParameters" Type="Str"></Property>
-					<Property Name="Comp.MaxFanout" Type="Int">-1</Property>
-					<Property Name="Comp.RandomSeed" Type="Bool">false</Property>
-					<Property Name="Comp.Version.Build" Type="Int">0</Property>
-					<Property Name="Comp.Version.Fix" Type="Int">0</Property>
-					<Property Name="Comp.Version.Major" Type="Int">1</Property>
-					<Property Name="Comp.Version.Minor" Type="Int">0</Property>
-					<Property Name="Comp.VersionAutoIncrement" Type="Bool">false</Property>
-					<Property Name="Comp.Vivado.EnableMultiThreading" Type="Bool">true</Property>
-					<Property Name="Comp.Vivado.OptDirective" Type="Str"></Property>
-					<Property Name="Comp.Vivado.PhysOptDirective" Type="Str"></Property>
-					<Property Name="Comp.Vivado.PlaceDirective" Type="Str"></Property>
-					<Property Name="Comp.Vivado.RouteDirective" Type="Str"></Property>
-					<Property Name="Comp.Vivado.RunPowerOpt" Type="Bool">false</Property>
-					<Property Name="Comp.Vivado.Strategy" Type="Str">Default</Property>
-					<Property Name="Comp.Xilinx.DesignStrategy" Type="Str">balanced</Property>
-					<Property Name="Comp.Xilinx.MapEffort" Type="Str">high(timing)</Property>
-					<Property Name="Comp.Xilinx.ParEffort" Type="Str">standard</Property>
-					<Property Name="Comp.Xilinx.SynthEffort" Type="Str">normal</Property>
-					<Property Name="Comp.Xilinx.SynthGoal" Type="Str">speed</Property>
-					<Property Name="Comp.Xilinx.UseRecommended" Type="Bool">true</Property>
-					<Property Name="DefaultBuildSpec" Type="Bool">true</Property>
-					<Property Name="DestinationDirectory" Type="Path">FPGA Bitfiles</Property>
-					<Property Name="NI.LV.FPGA.LastCompiledBitfilePath" Type="Path">/C/work/git/seti_fpga/seti_labview/src/FPGA Bitfiles/setilabview_7953_Fft-16_NnCMkibgJa8.lvbitx</Property>
-					<Property Name="NI.LV.FPGA.LastCompiledBitfilePathRelativeToProject" Type="Path">FPGA Bitfiles/setilabview_7953_Fft-16_NnCMkibgJa8.lvbitx</Property>
 					<Property Name="ProjectPath" Type="Path">/C/work/git/seti_fpga/seti_labview/src/seti_labview.lvproj</Property>
 					<Property Name="RelativePath" Type="Bool">true</Property>
 					<Property Name="RunWhenLoaded" Type="Bool">false</Property>
