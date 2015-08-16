@@ -92,6 +92,7 @@
 			<Item Name="Do-Fft-Fpga-Top-Level.vi" Type="VI" URL="../FpgaExercisor/Do-Fft-Fpga-Top-Level.vi"/>
 			<Item Name="LoadComplexArrayFromFile.vi" Type="VI" URL="../FpgaExercisor/LoadComplexArrayFromFile.vi"/>
 			<Item Name="Do-Fft-Fpga-Top-Level-Multiple-Calls.vi" Type="VI" URL="../FpgaExercisor/Do-Fft-Fpga-Top-Level-Multiple-Calls.vi"/>
+			<Item Name="Do-Fft-Fpga-Top-Level-Multiple-Lengths.vi" Type="VI" URL="../FpgaExercisor/Do-Fft-Fpga-Top-Level-Multiple-Lengths.vi"/>
 		</Item>
 		<Item Name="Helpers" Type="Folder">
 			<Item Name="Host-Convert-SGL-to-FXP.vi" Type="VI" URL="../Helpers/Host-Convert-SGL-to-FXP.vi"/>
@@ -1139,6 +1140,7 @@ set_property IOSTANDARD LVCMOS25 [get_ports {Si570Clkn}]
 			</Item>
 			<Item Name="Build Specifications" Type="Build"/>
 		</Item>
+		<Item Name="Compare-Results.vi" Type="VI" URL="../FpgaExercisor/Compare-Results.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="NI_AALPro.lvlib" Type="Library" URL="/&lt;vilib&gt;/Analysis/NI_AALPro.lvlib"/>
