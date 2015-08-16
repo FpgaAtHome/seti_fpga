@@ -280,44 +280,6 @@
 				</Item>
 			</Item>
 			<Item Name="Build Specifications" Type="Build">
-				<Item Name="FFT Co-processor (FPGA)" Type="{F4C5E96F-7410-48A5-BB87-3559BC9B167F}">
-					<Property Name="AllowEnableRemoval" Type="Bool">false</Property>
-					<Property Name="BuildSpecDecription" Type="Str"></Property>
-					<Property Name="BuildSpecName" Type="Str">FFT Co-processor (FPGA)</Property>
-					<Property Name="Comp.BitfileName" Type="Str">setilabview_7953_FFTCo-processor(_1HUBYcjIegk.lvbitx</Property>
-					<Property Name="Comp.CustomXilinxParameters" Type="Str"></Property>
-					<Property Name="Comp.MaxFanout" Type="Int">-1</Property>
-					<Property Name="Comp.RandomSeed" Type="Bool">false</Property>
-					<Property Name="Comp.Version.Build" Type="Int">0</Property>
-					<Property Name="Comp.Version.Fix" Type="Int">0</Property>
-					<Property Name="Comp.Version.Major" Type="Int">1</Property>
-					<Property Name="Comp.Version.Minor" Type="Int">0</Property>
-					<Property Name="Comp.VersionAutoIncrement" Type="Bool">false</Property>
-					<Property Name="Comp.Vivado.EnableMultiThreading" Type="Bool">true</Property>
-					<Property Name="Comp.Vivado.OptDirective" Type="Str"></Property>
-					<Property Name="Comp.Vivado.PhysOptDirective" Type="Str"></Property>
-					<Property Name="Comp.Vivado.PlaceDirective" Type="Str"></Property>
-					<Property Name="Comp.Vivado.RouteDirective" Type="Str"></Property>
-					<Property Name="Comp.Vivado.RunPowerOpt" Type="Bool">false</Property>
-					<Property Name="Comp.Vivado.Strategy" Type="Str">Default</Property>
-					<Property Name="Comp.Xilinx.DesignStrategy" Type="Str">balanced</Property>
-					<Property Name="Comp.Xilinx.MapEffort" Type="Str">high(timing)</Property>
-					<Property Name="Comp.Xilinx.ParEffort" Type="Str">standard</Property>
-					<Property Name="Comp.Xilinx.SynthEffort" Type="Str">normal</Property>
-					<Property Name="Comp.Xilinx.SynthGoal" Type="Str">speed</Property>
-					<Property Name="Comp.Xilinx.UseRecommended" Type="Bool">true</Property>
-					<Property Name="DefaultBuildSpec" Type="Bool">true</Property>
-					<Property Name="DestinationDirectory" Type="Path">FPGA Bitfiles</Property>
-					<Property Name="NI.LV.FPGA.LastCompiledBitfilePath" Type="Path">/C/work/git/seti_fpga/seti_labview/src/FPGA Bitfiles/setilabview_7953_FFTCo-processor(_OBG+irKcPKk.lvbitx</Property>
-					<Property Name="NI.LV.FPGA.LastCompiledBitfilePathRelativeToProject" Type="Path">FPGA Bitfiles/setilabview_7953_FFTCo-processor(_OBG+irKcPKk.lvbitx</Property>
-					<Property Name="ProjectPath" Type="Path">/C/work/git/seti_fpga/seti_labview/seti_labview.lvproj</Property>
-					<Property Name="RelativePath" Type="Bool">true</Property>
-					<Property Name="RunWhenLoaded" Type="Bool">false</Property>
-					<Property Name="SupportDownload" Type="Bool">true</Property>
-					<Property Name="SupportResourceEstimation" Type="Bool">true</Property>
-					<Property Name="TargetName" Type="Str">7953</Property>
-					<Property Name="TopLevelVI" Type="Ref"></Property>
-				</Item>
 				<Item Name="Fft" Type="{F4C5E96F-7410-48A5-BB87-3559BC9B167F}">
 					<Property Name="AllowEnableRemoval" Type="Bool">false</Property>
 					<Property Name="BuildSpecDecription" Type="Str"></Property>
@@ -346,6 +308,8 @@
 					<Property Name="Comp.Xilinx.UseRecommended" Type="Bool">true</Property>
 					<Property Name="DefaultBuildSpec" Type="Bool">true</Property>
 					<Property Name="DestinationDirectory" Type="Path">FPGA Bitfiles</Property>
+					<Property Name="NI.LV.FPGA.LastCompiledBitfilePath" Type="Path">/C/work/git/seti_fpga/seti_labview/src/FPGA Bitfiles/setilabview_7953_Fft_W9C4vfe3NpM.lvbitx</Property>
+					<Property Name="NI.LV.FPGA.LastCompiledBitfilePathRelativeToProject" Type="Path">FPGA Bitfiles/setilabview_7953_Fft_W9C4vfe3NpM.lvbitx</Property>
 					<Property Name="ProjectPath" Type="Path">/C/work/git/seti_fpga/seti_labview/src/seti_labview.lvproj</Property>
 					<Property Name="RelativePath" Type="Bool">true</Property>
 					<Property Name="RunWhenLoaded" Type="Bool">false</Property>
