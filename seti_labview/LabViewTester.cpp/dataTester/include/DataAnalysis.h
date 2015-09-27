@@ -15,7 +15,7 @@ public:
 	}
 	bool RunAnalysis();
 
-private:
+
 	void sincos(double angle, double *s, double *c);
 	bool AreFloatsEqual(float a, float b);
 	int ChirpData(
@@ -32,6 +32,7 @@ private:
 		int NumDataPoints
 	);
 
+private:
 	DataLoader &dataLoader;
 };
 

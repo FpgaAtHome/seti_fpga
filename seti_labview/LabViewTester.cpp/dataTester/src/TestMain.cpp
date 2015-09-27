@@ -13,7 +13,7 @@
 #include "ResultsLoader.h"
 #include "fftw3.h"
 
-#include "FpgaInterface.h"
+//#include "FpgaInterface.h"
 
 class DataLoader;
 
@@ -88,7 +88,7 @@ protected:
 // Values calculated using:
 // http://calculator.vhex.net/calculator/fast-fourier-transform-calculator-fft/1d-discrete-fourier-transform
 
-TEST(LibFftTest, Simple_RealToComplex_Fft_2) {
+TEST(LibFftTest, DISABLED_Simple_RealToComplex_Fft_2) {
 	// GIVEN
 	int fft_len = 2;
 	double in_data[] = {1, 0};
@@ -108,7 +108,7 @@ TEST(LibFftTest, Simple_RealToComplex_Fft_2) {
 	fftw_destroy_plan(analysis_plan);
 }
 
-TEST(LibFftTest, Simple_RealToComplex_Fft_4) {
+TEST(LibFftTest, DISABLED_Simple_RealToComplex_Fft_4) {
 	// GIVEN
 	int fft_len = 4;
 	double in_data[] = { 0, 1, 0, 0};
@@ -128,7 +128,7 @@ TEST(LibFftTest, Simple_RealToComplex_Fft_4) {
 	fftw_destroy_plan(analysis_plan);
 }
 
-TEST(LibFftTest, Simple_ComplexToComplex_Fft_4) {
+TEST(LibFftTest, DISABLED_Simple_ComplexToComplex_Fft_4) {
 	// GIVEN
 	int fft_len = 4;
 	fftwf_complex* in_data = new fftwf_complex[fft_len];
@@ -151,7 +151,7 @@ TEST(LibFftTest, Simple_ComplexToComplex_Fft_4) {
 	fftwf_destroy_plan(analysis_plan);
 }
 
-TEST(LibFftTest, Simple_ComplexToComplex_Fft_4_Diff_Data) {
+TEST(LibFftTest, DISABLED_Simple_ComplexToComplex_Fft_4_Diff_Data) {
 	// GIVEN
 	int fft_len = 4;
 	fftwf_complex* in_data = new fftwf_complex[fft_len];
@@ -203,7 +203,7 @@ TEST(LibFftTest2, Simple_ComplexToComplex_Fft_8_Wikipedia_Page_Data) {
 }
 #endif
 
-TEST(LibFftTest, Simple_ComplexToComplex_Fft_8_Simple) {
+TEST(LibFftTest, DISABLED_Simple_ComplexToComplex_Fft_8_Simple) {
 	// GIVEN
 	int fft_len = 8;
 	fftwf_complex* in_data = new fftwf_complex[fft_len];
@@ -230,7 +230,7 @@ TEST(LibFftTest, Simple_ComplexToComplex_Fft_8_Simple) {
 	fftwf_destroy_plan(analysis_plan);
 }
 
-TEST(LibFftTest, Simple_RealToComplex_Fft_16_Simple) {
+TEST(LibFftTest, DISABLED_Simple_RealToComplex_Fft_16_Simple) {
 	// GIVEN
 	int fft_len = 16;
 	fftwf_complex* in_data = new fftwf_complex[fft_len];
@@ -272,7 +272,7 @@ TEST(LibFftTest, Simple_RealToComplex_Fft_16_Simple) {
 	fftwf_destroy_plan(analysis_plan);
 }
 
-TEST(LibFftTest, Simple_ComplexToComplex_Fft_16_Simple) {
+TEST(LibFftTest, DISABLED_Simple_ComplexToComplex_Fft_16_Simple) {
 	// GIVEN
 	int fft_len = 16;
 	fftwf_complex* in_data = new fftwf_complex[fft_len];
@@ -314,7 +314,7 @@ TEST(LibFftTest, Simple_ComplexToComplex_Fft_16_Simple) {
 	fftwf_destroy_plan(analysis_plan);
 }
 
-TEST(LibFftTest, LoadFile_16) {
+TEST(LibFftTest, DISABLED_LoadFile_16) {
 	// GIVEN
 	std::string filename("data_16.txt");
 
@@ -334,7 +334,7 @@ TEST(LibFftTest, LoadFile_16) {
 	ASSERT_THAT(in_data.at(15).second, Eq(0));
 }
 
-TEST(LibFftTest, LoadFile_32) {
+TEST(LibFftTest, DISABLED_LoadFile_32) {
 	// GIVEN
 	std::string filename("data_32.txt");
 
@@ -357,7 +357,7 @@ TEST(LibFftTest, LoadFile_32) {
 	ASSERT_THAT(in_data.at(31).second, Eq(0.27f));
 }
 
-TEST(LibFftTest, ConvertFloatVector_To_FftwfComplexArray) {
+TEST(LibFftTest, DISABLED_ConvertFloatVector_To_FftwfComplexArray) {
 	// GIVEN
 	std::string filename("data_32.txt");
 	std::vector<std::pair<float, float>> in_data = LoadTestData(filename);
@@ -370,7 +370,7 @@ TEST(LibFftTest, ConvertFloatVector_To_FftwfComplexArray) {
 	ASSERT_THAT(complexArray[0][1], Eq(1));
 }
 
-TEST(LibFftTest, Simple_ComplexToComplex_Fft_16_Simple_2) {
+TEST(LibFftTest, DISABLED_Simple_ComplexToComplex_Fft_16_Simple_2) {
 	// GIVEN
 	int fft_len = 16;
 	fftwf_complex* in_data = new fftwf_complex[fft_len];
@@ -404,6 +404,7 @@ TEST(LibFftTest, Simple_ComplexToComplex_Fft_16_Simple_2) {
 	fftwf_destroy_plan(analysis_plan);
 }
 
+/*
 TEST(LibFftTest, UseLabViewFpga_ComplexToComplex_Fft_16_Simple_1)
 {
 	try {
@@ -436,23 +437,30 @@ TEST(LibFftTest, UseLabViewFpga_ComplexToComplex_Fft_16_Simple_1)
 	}
 
 }
-
-/*
-TEST_CASE("Run #1", "[test-run-1]") {
-	// GIVEN
-	int runNumber = 1;
-	std::string base_dir = "../../Runs";
-
-	DataLoader dataLoader(base_dir.c_str(), runNumber);
-	DataAnalysis dataAnalysis(dataLoader);
-
-	// WHEN
-	bool all_values_equal = dataAnalysis.RunAnalysis();
-
-	// THEN
-	CHECK(all_values_equal);
-}
 */
+
+TEST(ChirpFuncTest, TestChirping)
+{
+		DataLoader dataLoader("..\\..\\LabViewTester\\Runs", 1);
+		DataAnalysis dataAnalysis(dataLoader);
+
+		dataAnalysis.RunAnalysis();
+		double subband_sample_rate = 9765.6200000000008;
+		sah_complex *ChirpedData = (sah_complex *)malloc(dataLoader.NumDataPoints_ * sizeof(sah_complex));
+
+		for(int j = dataLoader.start_icfft_; j < dataLoader.end_icfft_; j++)
+		{
+				// Step 1 - ChirpData		
+				int retval = dataAnalysis.ChirpData(
+						dataLoader.pDataIn_,
+						ChirpedData,
+						dataLoader.pChirpFftPairs_[j].ChirpRateInd,
+						dataLoader.pChirpFftPairs_[j].ChirpRate,
+						dataLoader.NumDataPoints_,
+						subband_sample_rate
+				);
+		}
+}
 
 int main(int argc, char** argv) {
   // The following line must be executed to initialize Google Mock

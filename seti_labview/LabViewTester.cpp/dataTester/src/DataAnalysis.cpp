@@ -119,6 +119,7 @@ int DataAnalysis::ChirpData(
                 double ang  = 0.5*chirp_rate*time*time;
                 ang -= floor(ang);
                 ang *= M_PI*2;
+								// sin cos
                 sincos(ang,&dd,&cc);
                 c=cc;
                 d=dd;
